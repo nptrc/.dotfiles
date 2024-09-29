@@ -1,0 +1,12 @@
+[user]
+  email = khoa05032006@gmail.com
+  name = levisdev
+
+[init]
+  defaultBranch = main
+
+[safe]
+  directory = *
+
+[credential "helperselector"]
+  selected = manager
