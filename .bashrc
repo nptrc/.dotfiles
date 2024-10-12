@@ -10,10 +10,13 @@ export PATH
 
 HISTSIZE=-1
 HISTFILESIZE=-1
+HISTCONTROL=ignoreboth
+
+shopt -s histappend
 
 export EDITOR='nvim'
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS="
   --bind 'ctrl-d:preview-up' \
   --bind 'ctrl-f:preview-down' \
   --ansi \
@@ -21,12 +24,15 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --reverse \
   --no-scrollbar \
   --tabstop=2 \
-  --preview '$HOME/scripts/fzf-preview.sh {}' \
   --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
   --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-  --color=selected-bg:#45475a
 "
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+source "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
