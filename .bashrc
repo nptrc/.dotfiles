@@ -29,10 +29,7 @@ export FZF_DEFAULT_OPTS="
   --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 "
 
+source "$HOME/.cargo/env"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
-source "$HOME/.cargo/env"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+eval "$(fnm env --use-on-cd --shell bash)"
