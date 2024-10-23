@@ -11,8 +11,8 @@ local function code_runner()
 
       local ft_cmds = {
         python = "python3 " .. file,
-        c = "gcc -o " .. file_no_ext .. " -g " .. file .. " -Wall && ./" .. file_no_ext,
-        cpp = "g++ -o " .. file_no_ext .. " -g " .. file .. " -Wall && ./" .. file_no_ext,
+        c = "gcc -o " .. file_no_ext .. " -g " .. file .. " -Wall && " .. file_no_ext,
+        cpp = "g++ -o " .. file_no_ext .. " -g " .. file .. " -Wall && " .. file_no_ext,
       }
 
       return ft_cmds[vim.bo.ft]
