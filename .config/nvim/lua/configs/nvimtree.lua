@@ -40,6 +40,7 @@ return {
   on_attach = on_attach,
   view = {
     width = 25,
+    signcolumn = "no",
     preserve_window_proportions = true,
   },
 }
