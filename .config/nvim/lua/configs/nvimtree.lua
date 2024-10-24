@@ -42,7 +42,4 @@ return {
     width = 25,
     preserve_window_proportions = true,
   },
-  git = {
-    enable = false,
-  },
 }
