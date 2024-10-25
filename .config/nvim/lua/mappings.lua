@@ -1,5 +1,4 @@
 require "nvchad.mappings"
-local utils = require "utils"
 
 local map = vim.keymap.set
 local dmap = vim.keymap.del
@@ -60,7 +59,4 @@ map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
 dmap("n", "<C-n>")
 
 -- code runner
-map("n", "<C-b>", utils.code_runner)
-map({ "n", "t" }, "<A-j>", function()
-  require("nvchad.term").toggle { pos = "sp", id = "code_runner" }
-end)
+map("n", "<C-b>", "<cmd>RunCode<cr>")
