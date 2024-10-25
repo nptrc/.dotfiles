@@ -8,6 +8,7 @@ return {
     local servers = {
       clangd = {},
       pyright = {},
+      jsonls = {},
     }
 
     -- lsps with default config
