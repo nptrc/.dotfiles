@@ -4,6 +4,7 @@ return {
     ensure_installed = {
       "c",
       "cpp",
+      "cmake",
       "python",
     },
     incremental_selection = {
