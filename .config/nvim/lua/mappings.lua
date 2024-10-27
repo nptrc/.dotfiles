@@ -53,6 +53,8 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>")
 map("n", "<leader>bd", "<cmd>lua require('nvchad.tabufline').close_buffer()<cr>")
 map("n", "<S-h>", "<cmd>lua require('nvchad.tabufline').prev()<cr>")
 map("n", "<S-l>", "<cmd>lua require('nvchad.tabufline').next()<cr>")
+map("n", "[b", "<cmd>lua require('nvchad.tabufline').move_buf(-1)<cr>")
+map("n", "]b", "<cmd>lua require('nvchad.tabufline').move_buf(1)<cr>")
 
 -- file explorer
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
