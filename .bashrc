@@ -15,7 +15,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 export EDITOR='nvim'
-export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="
   --bind 'ctrl-d:preview-up' \
   --bind 'ctrl-f:preview-down' \
@@ -29,7 +29,5 @@ export FZF_DEFAULT_OPTS="
   --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 "
 
-source "$HOME/.cargo/env"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
-eval "$(fnm env --shell bash)"
