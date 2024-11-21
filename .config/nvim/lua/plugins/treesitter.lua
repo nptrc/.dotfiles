@@ -1,12 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
-    ensure_installed = {
-      "c",
-      "cpp",
-      "cmake",
-      "python",
-    },
     incremental_selection = {
       enable = true,
       keymaps = {
