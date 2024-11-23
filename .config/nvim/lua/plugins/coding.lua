@@ -7,6 +7,10 @@ return {
 
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
+      opts.completion = {
+        completeopt = "menu,menuone,noinsert,noselect",
+      }
+
       opts.mapping = vim.tbl_deep_extend("force", opts.mapping, {
         ["<C-j>"] = cmp.mapping.select_next_item(),
         ["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -36,7 +40,7 @@ return {
           :with_cr(cond.none())
           :with_del(function(rule_opts)
             local col = vim.api.nvim_win_get_cursor(0)[2]
-            return a1 .. ins .. ins .. a2 == rule_opts.line:sub(col - #a1 - #ins + 1, col + #ins + #a2) -- insert only works for #ins == 1 anyway
+            return a1 .. ins .. ins .. a2 == rule_opts.line:sub(col - #a1 - #ins + 1, col + #ins + #a2)
           end))
       end
 
