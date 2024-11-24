@@ -6,6 +6,9 @@ return {
       "cpp",
       "cmake",
       "python",
+      "json5",
+      "markdown",
+      "markdown_inline",
     },
 
     incremental_selection = {

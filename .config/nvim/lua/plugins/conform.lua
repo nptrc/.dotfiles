@@ -6,6 +6,7 @@ return {
       c = { "clang-format" },
       cpp = { "clang-format" },
       python = { "ruff_format" },
+      markdown = { "prettier" },
     },
 
     formatters = {
