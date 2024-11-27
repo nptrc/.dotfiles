@@ -3,6 +3,7 @@ local M = {}
 
 M.base46 = {
   theme = "catppuccin",
+  transparency = true,
 }
 
 M.ui = {
@@ -10,6 +11,10 @@ M.ui = {
     lazyload = false,
     order = { "treeOffset", "buffers" },
   },
+}
+
+M.lsp = {
+  signature = false,
 }
 
 M.term = {

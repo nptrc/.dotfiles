@@ -10,34 +10,17 @@ return {
         clangd = {},
         cmake = {},
         pyright = {},
-        jsonls = {
-          on_new_config = function(new_config)
-            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-          end,
-          settings = {
-            json = {
-              validate = { enable = true },
-            },
-          },
-        },
-        marksman = {},
+        jsonls = {},
       }
 
       -- lsps with default config
       for name, opts in pairs(servers) do
         opts.on_init = nvlsp.on_init
         opts.on_attach = nvlsp.on_attach
-        opts.capabilities = nvlsp.capabilities
+        opts.capabilities = require("blink.cmp").get_lsp_capabilities(nvlsp.capabilities)
 
         require("lspconfig")[name].setup(opts)
       end
     end,
-  },
-
-  {
-    "b0o/SchemaStore.nvim",
-    lazy = true,
-    version = false,
   },
 }

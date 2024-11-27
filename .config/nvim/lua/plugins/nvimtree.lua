@@ -11,6 +11,7 @@ return {
       local mappings = {
         ["l"] = { api.node.open.edit, "Open" },
         ["<Cr>"] = { api.node.open.edit, "Open" },
+        ["<2-LeftMouse>"] = { api.node.open.edit, "Open" },
         ["h"] = { api.node.navigate.parent_close, "Close Directory" },
         ["<C-v>"] = { api.node.open.vertical, "Open: Vertical Split" },
         ["<C-x>"] = { api.node.open.horizontal, "Open: Horizontal Split" },
