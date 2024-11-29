@@ -31,8 +31,3 @@ export FZF_DEFAULT_OPTS="
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
-
-conda_activate() {
-    eval "$(conda shell.bash hook)"
-    conda activate $1
-}
