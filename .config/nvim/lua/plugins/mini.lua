@@ -3,7 +3,7 @@ return {
   dependencies = {
     { "nvim-tree/nvim-tree.lua", enabled = false },
   },
-  event = { "BufReadPost", "BufNewFile" },
+  event = "VeryLazy",
   version = false,
   config = function()
     require("mini.ai").setup()
