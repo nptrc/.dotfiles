@@ -57,7 +57,7 @@ map("n", "[b", "<cmd>lua require('nvchad.tabufline').move_buf(-1)<cr>")
 map("n", "]b", "<cmd>lua require('nvchad.tabufline').move_buf(1)<cr>")
 
 -- file explorer
-map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>")
+map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
 dmap("n", "<C-n>")
 
 -- code runner
