@@ -4,6 +4,10 @@ local M = {}
 M.base46 = {
   theme = "catppuccin",
   transparency = true,
+  hl_add = {
+    MiniFilesTitle = { fg = "black", bg = "blue" },
+    MiniFilesTitleFocused = { fg = "black", bg = "blue" },
+  },
 }
 
 M.ui = {

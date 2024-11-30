@@ -7,17 +7,7 @@ return {
   {
     "saghen/blink.cmp",
     version = "*",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        opts = {
-          fast_wrap = {},
-          disable_filetype = { "TelescopePrompt", "vim" },
-        },
-      },
-    },
+    dependencies = "rafamadriz/friendly-snippets",
     event = "InsertEnter",
     opts = {
       keymap = {
