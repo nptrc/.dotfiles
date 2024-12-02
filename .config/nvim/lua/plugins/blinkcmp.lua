@@ -11,7 +11,7 @@ return {
     event = "InsertEnter",
     opts = {
       keymap = {
-        preset = "super-tab",
+        preset = "enter",
         ["<C-j>"] = { "select_next", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-o>"] = { "show", "hide_documentation" },
