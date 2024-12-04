@@ -8,12 +8,6 @@ return {
       python = { "ruff_format" },
     },
 
-    formatters = {
-      ["clang-format"] = {
-        prepend_args = { "-style", "Microsoft" },
-      },
-    },
-
     format_on_save = {
       timeout_ms = 500,
       lsp_fallback = true,

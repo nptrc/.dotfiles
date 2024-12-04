@@ -50,14 +50,15 @@ map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>")
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>")
 
 -- buffers navigate
-map("n", "<leader>bd", "<cmd>lua MiniBufremove.delete(0)<cr>")
+dmap("n", "<leader>b")
+map("n", "<leader>x", "<cmd>lua MiniBufremove.delete(0)<cr>", { desc = "buffer close" })
 map("n", "<S-h>", "<cmd>lua require('nvchad.tabufline').prev()<cr>")
 map("n", "<S-l>", "<cmd>lua require('nvchad.tabufline').next()<cr>")
 map("n", "[b", "<cmd>lua require('nvchad.tabufline').move_buf(-1)<cr>")
 map("n", "]b", "<cmd>lua require('nvchad.tabufline').move_buf(1)<cr>")
 
 -- file explorer
-map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
+map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "nvimtree toggle" })
 dmap("n", "<C-n>")
 
 -- code runner

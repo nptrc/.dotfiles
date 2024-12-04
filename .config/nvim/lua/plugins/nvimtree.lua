@@ -43,6 +43,7 @@ return {
         signcolumn = "no",
         preserve_window_proportions = true,
       },
+      filters = { enable = false },
     })
   end,
 }
