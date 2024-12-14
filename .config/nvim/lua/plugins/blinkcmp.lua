@@ -21,11 +21,11 @@ return {
         auto_brackets = { enabled = true },
       },
 
-      trigger = {
-        signature_help = { enabled = true },
+      signature = {
+        enabled = true,
       },
 
-      windows = {
+      completion = {
         documentation = {
           auto_show = true,
           direction_priority = {
