@@ -51,3 +51,11 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
     end
   end,
 })
+
+-- change comment style
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp" },
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end,
+})
