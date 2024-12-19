@@ -19,7 +19,10 @@ require("lazy").setup({
 
   { import = "plugins" },
 }, {
-  defaults = { lazy = true },
+  defaults = {
+    lazy = true,
+    version = false,
+  },
   install = { colorscheme = { "nvchad" } },
   change_detection = { notify = false },
   lockfile = vim.fn.stdpath "data" .. "/lazy-lock.json",

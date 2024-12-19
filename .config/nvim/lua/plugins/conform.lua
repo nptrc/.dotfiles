@@ -5,6 +5,7 @@ return {
     formatters_by_ft = {
       c = { "clang-format" },
       cpp = { "clang-format" },
+      cmake = { "cmake_format" },
       python = { "ruff_format" },
     },
 

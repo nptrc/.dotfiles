@@ -1,8 +1,5 @@
 return {
-  {
-    "hrsh7th/nvim-cmp",
-    enabled = false,
-  },
+  { "hrsh7th/nvim-cmp", enabled = false },
 
   {
     "saghen/blink.cmp",
@@ -17,21 +14,15 @@ return {
         ["<C-o>"] = { "show", "hide_documentation" },
       },
 
-      accept = {
-        auto_brackets = { enabled = true },
-      },
-
-      signature = {
-        enabled = true,
-      },
+      signature = { enabled = true },
 
       completion = {
+        accept = {
+          auto_brackets = { enabled = true },
+        },
         documentation = {
           auto_show = true,
-          direction_priority = {
-            autocomplete_north = { "e", "w" },
-            autocomplete_south = { "e", "w" },
-          },
+          auto_show_delay_ms = 200,
         },
       },
     },

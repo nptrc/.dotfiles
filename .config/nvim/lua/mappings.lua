@@ -18,8 +18,8 @@ map("n", "j", "gj")
 map("n", "k", "gk")
 
 -- split window
-map("n", "ss", ":sp<Cr>")
-map("n", "sv", ":vs<Cr>")
+map("n", "ss", ":sp<cr>")
+map("n", "sv", ":vs<cr>")
 
 -- navigate window
 map("t", "<C-h>", "<C-\\><C-n><C-w>h")

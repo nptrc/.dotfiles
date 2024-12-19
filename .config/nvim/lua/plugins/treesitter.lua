@@ -1,5 +1,8 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  dependencies = {
+    { "folke/ts-comments.nvim", opts = {} },
+  },
   opts = {
     ensure_installed = {
       "c",

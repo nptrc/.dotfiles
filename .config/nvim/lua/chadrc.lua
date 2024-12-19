@@ -25,7 +25,7 @@ M.term = {
     row = 0.1,
     col = 0.15,
     width = 0.7,
-    height = 0.6,
+    height = 0.7,
   },
 }
 

@@ -8,7 +8,7 @@ return {
       local nvlsp = require "nvchad.configs.lspconfig"
       local servers = {
         clangd = {},
-        cmake = {},
+        neocmake = {},
         pyright = {},
         jsonls = {},
       }

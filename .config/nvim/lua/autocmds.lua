@@ -52,10 +52,33 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
   end,
 })
 
--- change comment style
+-- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "c", "cpp" },
-  callback = function()
-    vim.bo.commentstring = "// %s"
+  pattern = {
+    "checkhealth",
+    "help",
+    "lspinfo",
+    "qf",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.schedule(function()
+      vim.keymap.set("n", "q", function()
+        vim.cmd "close"
+        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+      end, {
+        buffer = event.buf,
+        silent = true,
+        desc = "Quit buffer",
+      })
+    end)
+  end,
+})
+
+-- make it easier to close man-files when opened inline
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "man" },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
   end,
 })
