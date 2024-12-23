@@ -14,6 +14,10 @@ return {
         ["<C-o>"] = { "show", "hide_documentation" },
       },
 
+      sources = {
+        cmdline = {},
+      },
+
       signature = { enabled = true },
 
       completion = {
