@@ -6,7 +6,6 @@ return {
       { "<leader>E", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
     },
     opts = {
-      sources = { "filesystem" },
       default_component_configs = {
         indent = {
           with_expanders = false,
