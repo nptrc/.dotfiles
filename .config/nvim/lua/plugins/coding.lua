@@ -11,6 +11,9 @@ return {
       },
 
       completion = {
+        list = {
+          selection = "auto_insert",
+        },
         ghost_text = {
           enabled = false,
         },
