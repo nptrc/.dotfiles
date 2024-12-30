@@ -47,4 +47,12 @@ return {
       { "<leader>sw", LazyVim.pick("grep_cword", { root = false }), desc = "Word (cwd)" },
     },
   },
+
+  {
+    "Civitasv/cmake-tools.nvim",
+    opts = {
+      cmake_build_directory = "build/",
+      cmake_soft_link_compile_commands = false,
+    },
+  },
 }
