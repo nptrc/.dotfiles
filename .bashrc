@@ -1,12 +1,12 @@
 source $HOME/.bash_aliases
 
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
-  . /usr/share/bash-completion/bash_completion
+    . /usr/share/bash-completion/bash_completion
 
 HISTSIZE=-1
 HISTFILESIZE=-1
@@ -32,3 +32,11 @@ export FZF_DEFAULT_OPTS="
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+
+eval "if [[ -z '$ZELLIJ' ]]; then
+  zellij --layout compact
+
+  if [[ '$ZELLIJ_AUTO_EXIT' == 'true' ]]; then
+    exit
+  fi
+fi"
