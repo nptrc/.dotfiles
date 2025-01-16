@@ -32,11 +32,3 @@ export FZF_DEFAULT_OPTS="
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
-
-eval "if [[ -z '$ZELLIJ' ]]; then
-  zellij --layout compact
-
-  if [[ '$ZELLIJ_AUTO_EXIT' == 'true' ]]; then
-    exit
-  fi
-fi"

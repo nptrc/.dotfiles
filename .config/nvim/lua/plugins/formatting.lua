@@ -2,7 +2,7 @@ return {
   {
     "stevearc/conform.nvim",
     dependencies = {
-      "mason.nvim",
+      "williamboman/mason.nvim",
       opts = {
         ensure_installed = {
           "clang-format",

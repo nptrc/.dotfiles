@@ -26,7 +26,7 @@ return {
   },
 
   {
-    "snacks.nvim",
+    "folke/snacks.nvim",
     opts = {
       indent = { enabled = false },
     },
