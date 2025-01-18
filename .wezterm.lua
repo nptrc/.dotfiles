@@ -29,7 +29,6 @@ config.scrollback_lines = 99999
 config.initial_rows = 28
 config.initial_cols = 100
 
-config.default_cursor_style = "SteadyBar"
 config.cursor_thickness = 2
 
 config.use_fancy_tab_bar = false
