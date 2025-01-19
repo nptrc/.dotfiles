@@ -16,6 +16,19 @@ config.keys = {
 	{ key = "w", mods = "SUPER", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 }
 
+config.mouse_bindings = {
+	{
+		event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+		mods = "NONE",
+		action = act.ScrollByLine(-3),
+	},
+	{
+		event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+		mods = "NONE",
+		action = act.ScrollByLine(3),
+	},
+}
+
 config.window_frame = {
 	font = wezterm.font({ family = "FiraCode Nerd Font" }),
 	font_size = 12.0,
