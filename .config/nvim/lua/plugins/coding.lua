@@ -16,6 +16,9 @@ return {
             preselect = false,
           },
         },
+        ghost_text = {
+          enabled = false,
+        },
       },
     },
   },
