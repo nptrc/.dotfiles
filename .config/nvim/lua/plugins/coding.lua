@@ -9,17 +9,6 @@ return {
         ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-y>"] = { "show", "hide_documentation", "fallback" },
       },
-
-      completion = {
-        list = {
-          selection = {
-            preselect = false,
-          },
-        },
-        ghost_text = {
-          enabled = false,
-        },
-      },
     },
   },
 }
