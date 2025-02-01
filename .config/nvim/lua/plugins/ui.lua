@@ -1,19 +1,5 @@
 return {
   {
-    "akinsho/bufferline.nvim",
-    opts = {
-      options = {
-        offsets = {
-          {
-            filetype = "neo-tree",
-            highlight = "background",
-          },
-        },
-      },
-    },
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
@@ -33,6 +19,9 @@ return {
             winbar = "",
           },
         },
+      },
+      picker = {
+        hidden = true,
       },
     },
   },
