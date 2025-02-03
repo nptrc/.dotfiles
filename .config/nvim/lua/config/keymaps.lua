@@ -1,4 +1,5 @@
 local map = vim.keymap.set
 
--- back to normal mode
-map("i", "jk", "<esc>")
+map("i", "jk", "<esc>", { desc = "Exit insert mode" })
+
+map("n", "<c-c>", "<cmd>%y+<cr>", { desc = "Copy whole file" })
