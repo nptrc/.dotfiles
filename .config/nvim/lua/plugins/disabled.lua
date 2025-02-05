@@ -3,4 +3,5 @@ return {
   { "MagicDuck/grug-far.nvim", enabled = false },
   { "mfussenegger/nvim-lint", enabled = false },
   { "p00f/clangd_extensions.nvim", enabled = false },
+  { "folke/flash.nvim", enabled = false },
 }
