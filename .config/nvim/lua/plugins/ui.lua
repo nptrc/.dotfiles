@@ -1,5 +1,16 @@
 return {
   {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        diagnostics = false,
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+      },
+    },
+  },
+
+  {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
