@@ -23,17 +23,10 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      animate = { enabled = false },
       scroll = { enabled = false },
-      terminal = {
-        win = {
-          wo = {
-            winbar = "",
-          },
-        },
-      },
-      picker = {
-        hidden = true,
-      },
+      terminal = { win = { wo = { winbar = "" } } },
+      picker = { hidden = true },
     },
   },
 }
