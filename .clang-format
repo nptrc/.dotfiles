@@ -1,4 +1,11 @@
 ---
 BasedOnStyle: Microsoft
 AlignArrayOfStructures: Right
+BraceWrapping:
+  AfterClass: False
+  AfterControlStatement: Never
+  AfterEnum: False
+  AfterNamespace: False
+  AfterStruct: False
+  BeforeElse: False
 ---
