@@ -1,0 +1,214 @@
+# modifier key
+set $mod Mod4
+floating_modifier $mod
+
+# options
+workspace_auto_back_and_forth yes
+workspace_layout tabbed
+hide_edge_borders smart
+focus_follows_mouse no
+
+# rules
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [class="dolphin"] floating enable
+
+# font
+font pango:Noto Sans Mono 12
+
+# autostart
+exec --no-startup-id dex-autostart --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -c 1e1e2e
+exec --no-startup-id xinput disable "ASUP1205:00 093A:2008 Touchpad"
+exec --no-startup-id setxkbmap -option "caps:escape_shifted_capslock"
+exec --no-startup-id picom -b
+exec --no-startup-id numlockx
+exec --no-startup-id dunst
+
+exec_always --no-startup-id xrandr --output eDP-1 --preferred
+exec_always --no-startup-id xrdb ~/.Xresources
+exec_always --no-startup-id ~/.fehbg
+
+# bindings
+
+# volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+# brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 10%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86KbdBrightnessUp exec --no-startup-id brightnessctl --device='asus::kbd_backlight' set 1+
+bindsym XF86KbdBrightnessDown exec --no-startup-id brightnessctl --device='asus::kbd_backlight' set 1-
+
+# terminal
+bindsym $mod+Return exec kitty
+
+# kill
+bindsym $mod+Shift+q kill
+
+# dmenu
+bindsym $mod+d exec dmenu_run
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+v split h
+
+# split in vertical orientation
+bindsym $mod+x split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle all
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+n focus mode_toggle
+
+# focus container
+bindsym $mod+a focus parent
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+# control i3
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# workspaces
+
+# define workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+
+# modes
+
+# resize window
+mode "resize" {
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# system controls
+set $mode_system System: [P]oweroff, [S]uspend, [R]eboot, [L]ock, [O]Logout
+mode "$mode_system" {
+    bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym l exec --no-startup-id i3lock --nofork -c 1e1e2e, mode "default"
+    bindsym o exec --no-startup-id i3-msg exit
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Shift+x mode "default"
+}
+bindsym $mod+Shift+x mode "$mode_system"
+
+# screen capture
+set $mode_capture Capture: [F]ullscreen, [W]indow, [R]egion
+mode "$mode_capture" {
+    bindsym f exec --no-startup-id spectacle -bcf, mode "default"
+    bindsym w exec --no-startup-id spectacle -bca, mode "default"
+    bindsym r exec --no-startup-id spectacle -bcr, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+s mode "default"
+}
+bindsym $mod+s mode "$mode_capture"
+
+# catppuccin
+set $rosewater #f5e0dc
+set $flamingo #f2cdcd
+set $pink #f5c2e7
+set $mauve #cba6f7
+set $red #f38ba8
+set $maroon #eba0ac
+set $peach #fab387
+set $yellow #f9e2af
+set $green #a6e3a1
+set $teal #94e2d5
+set $sky #89dceb
+set $sapphire #74c7ec
+set $blue #89b4fa
+set $lavender #b4befe
+set $text #cdd6f4
+set $subtext1 #bac2de
+set $subtext0 #a6adc8
+set $overlay2 #9399b2
+set $overlay1 #7f849c
+set $overlay0 #6c7086
+set $surface2 #585b70
+set $surface1 #45475a
+set $surface0 #313244
+set $base #1e1e2e
+set $mantle #181825
+set $crust #11111b
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+# bar
+bar {
+  status_command i3blocks
+  workspace_min_width 30
+  colors {
+    background         $base
+    statusline         $text
+    focused_statusline $text
+    focused_separator  $base
+
+    # target           border bg        text
+    focused_workspace  $base  $mauve    $crust
+    active_workspace   $base  $surface2 $text
+    inactive_workspace $base  $base     $text
+    urgent_workspace   $base  $red      $crust
+  }
+}
