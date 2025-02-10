@@ -43,6 +43,9 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 bindsym XF86KbdBrightnessUp exec --no-startup-id brightnessctl --device='asus::kbd_backlight' set 1+
 bindsym XF86KbdBrightnessDown exec --no-startup-id brightnessctl --device='asus::kbd_backlight' set 1-
 
+# touchpad
+bindsym XF86TouchpadToggle exec --no-startup-id ~/.config/i3/touchpad.sh
+
 # terminal
 bindsym $mod+Return exec kitty
 
