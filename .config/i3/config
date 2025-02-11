@@ -137,9 +137,9 @@ bindsym $mod+r mode "resize"
 # system controls
 set $mode_system System: [P]oweroff, [S]uspend, [R]eboot, [L]ock, [O]Logout
 mode "$mode_system" {
-    bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff
+    bindsym r exec --no-startup-id systemctl reboot
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym l exec --no-startup-id i3lock --nofork -c 1e1e2e, mode "default"
     bindsym o exec --no-startup-id i3-msg exit
 
