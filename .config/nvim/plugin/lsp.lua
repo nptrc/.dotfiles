@@ -19,7 +19,6 @@ vim.lsp.config("*", {
 
 vim.diagnostic.config({
   underline = false,
-  update_in_insert = true,
   severity_sort = true,
 })
 
