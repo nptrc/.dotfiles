@@ -10,6 +10,7 @@ return {
 
     { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end },
+    { "<leader>fb", function() Snacks.picker.buffers({ focus = "list" }) end },
 
     { "<leader>sg", function() Snacks.picker.grep() end },
     { "<leader>sw", function() Snacks.picker.grep_word() end },
@@ -24,8 +25,24 @@ return {
     indent = {},
     quickfile = {},
     input = {},
+
     picker = {
       hidden = true,
+
+      layout = {
+        preset = "ivy",
+        layout = {
+          height = 0.8,
+        },
+      },
+
+      win = {
+        list = {
+          keys = {
+            ["o"] = "confirm",
+          },
+        },
+      },
     },
   },
 }
