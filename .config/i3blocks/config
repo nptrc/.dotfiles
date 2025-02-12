@@ -21,7 +21,7 @@ interval=5
 [battery]
 command=upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | awk '{print $2 " "}'
 color=#f9e2af
-interval=5
+interval=60
 
 [time]
 command=date '+󰃭 %d/%m/%Y  󰥔 %H:%M '
