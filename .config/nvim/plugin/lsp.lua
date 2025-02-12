@@ -23,10 +23,10 @@ vim.diagnostic.config({
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  -- stylua: ignore
-  callback = function()
+  callback = function(args)
     local map = vim.keymap.set
 
+    -- stylua: ignore start
     map("n", "gd", function() Snacks.picker.lsp_definitions() end)
     map("n", "gD", function() Snacks.picker.lsp_declarations() end)
     map("n", "gr", function() Snacks.picker.lsp_references() end, { nowait = true })
@@ -36,5 +36,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>rn", vim.lsp.buf.rename)
     map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
     map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
+    -- stylua: ignore end
   end,
 })
