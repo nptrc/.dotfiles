@@ -24,7 +24,6 @@ return {
     bigfile = {},
     indent = {},
     quickfile = {},
-    input = {},
 
     picker = {
       hidden = true,
