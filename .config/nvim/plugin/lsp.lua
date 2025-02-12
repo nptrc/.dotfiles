@@ -25,14 +25,16 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd("LspAttach", {
   -- stylua: ignore
   callback = function()
-    vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end)
-    vim.keymap.set("n", "gD", function() Snacks.picker.lsp_declarations() end)
-    vim.keymap.set("n", "gr", function() Snacks.picker.lsp_references() end, { nowait = true })
-    vim.keymap.set("n", "<leader>sd", function() Snacks.picker.diagnostics() end)
-    vim.keymap.set("n", "<leader>sD", function() Snacks.picker.diagnostics_buffer() end)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
+    local map = vim.keymap.set
+
+    map("n", "gd", function() Snacks.picker.lsp_definitions() end)
+    map("n", "gD", function() Snacks.picker.lsp_declarations() end)
+    map("n", "gr", function() Snacks.picker.lsp_references() end, { nowait = true })
+    map("n", "<leader>sd", function() Snacks.picker.diagnostics() end)
+    map("n", "<leader>sD", function() Snacks.picker.diagnostics_buffer() end)
+    map("n", "<leader>ca", vim.lsp.buf.code_action)
+    map("n", "<leader>rn", vim.lsp.buf.rename)
+    map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
+    map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
   end,
 })
