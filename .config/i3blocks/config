@@ -1,17 +1,11 @@
 [volume]
-command=wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{if ($3 != "[MUTED]") printf "󰕾 %.0f%% \n", $2*100}'
-color=#89b4fa
-interval=1
-
-[volume_muted]
-command=wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{if ($3 == "[MUTED]") print "󰝟 "}'
-color=#f38ba8
-interval=1
+command=./volume.sh
+signal=1
 
 [mic]
 command=wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{if ($3 == "[MUTED]") print "󰍭 "}'
 color=#f38ba8
-interval=1
+signal=2
 
 [battery_status]
 command=upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state | awk '{if ($2 == "discharging") print "󰂁"; else print "󰂄"}'
@@ -24,6 +18,6 @@ color=#f9e2af
 interval=60
 
 [time]
-command=date '+󰃭 %d/%m/%Y  󰥔 %H:%M '
+command=date '+󰃭 %d/%m/%Y 󰥔 %H:%M '
 color=#a6e3a1
 interval=5
