@@ -9,6 +9,7 @@ return {
       python = { "ruff_format" },
       json = { "prettierd" },
       sh = { "shfmt" },
+      cmake = { "cmake_format" },
     },
     format_on_save = {
       timeout_ms = 500,
