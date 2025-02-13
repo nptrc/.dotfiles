@@ -32,6 +32,7 @@ return {
         preset = "ivy",
         layout = {
           height = 0.8,
+          border = "single",
         },
       },
 
