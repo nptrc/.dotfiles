@@ -108,10 +108,29 @@ function TaskRunner:execute_task(task_name, available_tasks, file_info, is_prela
 end
 
 function TaskRunner:select_and_run_task(available_tasks, file_info)
-  local choices = vim.tbl_keys(available_tasks)
-  vim.ui.select(choices, { prompt = "Choose task to run: " }, function(choice)
+  local choices = {}
+
+  for task_name, task_data in pairs(available_tasks) do
+    local desc = ""
+
+    if type(task_data) == "table" and task_data.desc then
+      desc = task_data.desc
+    end
+
+    table.insert(choices, {
+      value = task_name,
+      display = task_name .. (desc ~= "" and " (" .. desc .. ")" or ""),
+    })
+  end
+
+  vim.ui.select(choices, {
+    prompt = "Choose task to run: ",
+    format_item = function(item)
+      return item.display
+    end,
+  }, function(choice)
     if choice then
-      self:execute_task(choice, available_tasks, file_info)
+      self:execute_task(choice.value, available_tasks, file_info)
     end
   end)
 end
