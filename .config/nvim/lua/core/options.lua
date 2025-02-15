@@ -31,6 +31,7 @@ opt.sidescrolloff = 8
 
 opt.splitbelow = true
 opt.splitright = true
+opt.splitkeep = "screen"
 
 opt.timeoutlen = 300
 opt.updatetime = 200
