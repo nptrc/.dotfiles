@@ -91,13 +91,13 @@ function TaskRunner:execute_task(task_name, available_tasks, file_info, is_prela
   if is_prelaunch then
     local output = vim.fn.system(command)
 
-    if output ~= "" then
-      echo_message(output)
-    end
-
     if vim.v.shell_error ~= 0 then
       echo_message(output, "ErrorMsg")
       return false
+    end
+
+    if output ~= "" then
+      echo_message(output)
     end
   elseif should_run then
     vim.cmd("split | term " .. command)
