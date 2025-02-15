@@ -24,6 +24,13 @@ return {
     bigfile = {},
     indent = {},
     quickfile = {},
+    input = {},
+
+    styles = {
+      input = {
+        border = "single",
+      },
+    },
 
     picker = {
       hidden = true,
