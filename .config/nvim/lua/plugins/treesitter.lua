@@ -3,7 +3,6 @@ return {
   build = ":TSUpdate",
   event = { "BufRead", "BufNewFile" },
   dependencies = {
-    { "folke/ts-comments.nvim", opts = {} },
     { "windwp/nvim-ts-autotag", opts = {} },
   },
   opts = {
