@@ -1,21 +1,31 @@
 return {
   "Saghen/blink.cmp",
   version = "*",
-  event = "InsertEnter",
+  event = { "InsertEnter", "CmdlineEnter" },
   opts = {
     keymap = {
       preset = "enter",
-      ["<C-o>"] = { "select_and_accept", "fallback" },
-      ["<C-j>"] = { "select_next", "fallback" },
-      ["<C-k>"] = { "select_prev", "fallback" },
-      ["<C-y>"] = { "show", "hide_documentation", "fallback" },
+      ["<cr>"] = { "select_and_accept", "fallback" },
+      ["<c-o>"] = { "select_and_accept", "fallback" },
+      ["<c-j>"] = { "select_next", "fallback" },
+      ["<c-k>"] = { "select_prev", "fallback" },
     },
 
-    sources = {
-      cmdline = {},
+    cmdline = {
+      keymap = {
+        ["<c-j>"] = { "select_next", "fallback" },
+        ["<c-k>"] = { "select_prev", "fallback" },
+        ["<tab>"] = { "select_next", "fallback" },
+        ["<s-tab>"] = { "select_prev", "fallback" },
+      },
     },
 
     completion = {
+      list = {
+        selection = {
+          preselect = false,
+        },
+      },
       accept = {
         auto_brackets = { enabled = true },
       },
