@@ -36,3 +36,7 @@ map("n", "<S-l>", "<cmd>bnext<cr>")
 map("n", "<leader>ur", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>")
 
 map("n", "<leader>K", "<cmd>norm! K<cr>")
+
+vim.keymap.set("n", "<c-b>", "<cmd>Task run<cr>")
+vim.keymap.set("n", "<leader>cb", "<cmd>Task build<cr>")
+vim.keymap.set("n", "<leader>fs", "<cmd>Task<cr>")
