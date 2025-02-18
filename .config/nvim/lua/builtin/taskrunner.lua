@@ -14,7 +14,7 @@ local FILETYPE_MAP = {
 
 ---Check if a file exists
 ---@param filename string The file to check
----@return boolean Whether the file exists
+---@return boolean
 local function check_file_exists(filename)
   return vim.uv.fs_stat(filename) ~= nil
 end
@@ -28,7 +28,7 @@ local function echo_message(msg, highlight, history)
 end
 
 ---Get information about the current file
----@return table The file information
+---@return table
 local function get_current_file_info()
   local full_path = vim.fn.expand("%:p:.")
   return {
@@ -42,23 +42,23 @@ end
 local TaskRunner = {}
 
 ---Create a new TaskRunner instance
----@return TaskRunner The new instance
+---@return TaskRunner
 function TaskRunner.new()
   local self = setmetatable({}, { __index = TaskRunner })
   return self
 end
 
 ---Load tasks from tasks.lua
----@return table?, string? The tasks table or an error message
+---@return table?, string?
 function TaskRunner:load_tasks()
   if not check_file_exists(TASKS_FILE) then
     return nil, "tasks.lua doesn't exist"
   end
 
   package.loaded.tasks = nil
-  local tasks, err = require("tasks")
-  if err then
-    return nil, "Error loading tasks.lua: " .. err
+  local ok, tasks = pcall(require, "tasks")
+  if not ok then
+    return nil, "Error loading tasks.lua:\n" .. tasks
   end
   return tasks
 end
@@ -66,7 +66,7 @@ end
 ---Get tasks for the current filetype
 ---@param tasks table The tasks table
 ---@param file_info table The file information
----@return table?, string? The tasks for the current filetype or an error message
+---@return table?, string?
 function TaskRunner:get_filetype_tasks(tasks, file_info)
   local filetype_mappings_from_tasks = tasks.filetype_mappings or {}
   local merged_filetype_map = vim.tbl_deep_extend("force", {}, FILETYPE_MAP, filetype_mappings_from_tasks)
@@ -93,7 +93,7 @@ end
 ---Prepare a command by replacing filename placeholders
 ---@param command string The command to prepare
 ---@param file_info table The file information
----@return string The prepared command
+---@return string
 function TaskRunner:prepare_command(command, file_info)
   local prepared_command =
     command:gsub(FILENAME_PATTERNS.FULL, file_info.full_path):gsub(FILENAME_PATTERNS.NO_EXT, file_info.no_ext)
@@ -103,10 +103,11 @@ end
 ---Get the command to run for a task
 ---@param task table|string The task to get the command for
 ---@param file_info table The file information
----@return string The command to run
+---@return string
 function TaskRunner:get_task_command(task, file_info)
   local command = type(task) == "table" and task.cmd or task
-  command = command .. " " .. (task.args or "")
+  local args = type(task) == "table" and task.args or ""
+  command = command .. (#args > 0 and " " .. args or "")
   command = self:prepare_command(command, file_info)
   return command
 end
@@ -116,7 +117,7 @@ end
 ---@param available_tasks table The available tasks
 ---@param file_info table The file information
 ---@param is_prelaunch? boolean Whether this is a prelaunch task
----@return boolean, string? Whether the task was executed successfully and an error message
+---@return boolean, string?
 function TaskRunner:execute_task(task_name, available_tasks, file_info, is_prelaunch)
   local task = available_tasks[task_name]
   if not task then
@@ -171,6 +172,10 @@ function TaskRunner:select_and_run_task(available_tasks, file_info)
       display = task_name .. (desc ~= "" and " (" .. desc .. ")" or ""),
     })
   end
+
+  table.sort(choices, function(a, b)
+    return a.value < b.value
+  end)
 
   vim.ui.select(choices, {
     prompt = "Choose task to run: ",
