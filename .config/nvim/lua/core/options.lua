@@ -40,3 +40,7 @@ opt.undofile = true
 opt.undolevels = 10000
 
 opt.shortmess:append({ I = true })
+
+vim.cmd("cnoreabbrev W  w")
+vim.cmd("cnoreabbrev Wq wq")
+vim.cmd("cnoreabbrev WQ wq")
