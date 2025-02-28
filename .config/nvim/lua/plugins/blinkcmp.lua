@@ -18,6 +18,11 @@ return {
         ["<tab>"] = { "select_next", "fallback" },
         ["<s-tab>"] = { "select_prev", "fallback" },
       },
+      completion = {
+        menu = {
+          auto_show = true,
+        },
+      },
     },
 
     completion = {
