@@ -15,7 +15,7 @@ local FILETYPE_MAP = {
 ---Check if a file exists
 ---@param filename string The file to check
 ---@return boolean
-local function check_file_exists(filename)
+local function file_exists(filename)
   return vim.uv.fs_stat(filename) ~= nil
 end
 
@@ -24,7 +24,7 @@ end
 ---@param highlight? string The highlight group to use
 ---@param history? boolean Whether to add the message to the command history
 local function echo_message(msg, highlight, history)
-  vim.api.nvim_echo({ { "[Tasks] " .. msg, highlight or "None" } }, history or true, {})
+  vim.api.nvim_echo({ { "[Task] " .. msg, highlight or "None" } }, history or true, {})
 end
 
 ---Get information about the current file
@@ -51,7 +51,7 @@ end
 ---Load tasks from tasks.lua
 ---@return table?, string?
 function TaskRunner:load_tasks()
-  if not check_file_exists(TASKS_FILE) then
+  if not file_exists(TASKS_FILE) then
     return nil, "tasks.lua doesn't exist"
   end
 
@@ -93,11 +93,9 @@ end
 ---Prepare a command by replacing filename placeholders
 ---@param command string The command to prepare
 ---@param file_info table The file information
----@return string
+---@return string, nil
 function TaskRunner:prepare_command(command, file_info)
-  local prepared_command =
-    command:gsub(FILENAME_PATTERNS.FULL, file_info.full_path):gsub(FILENAME_PATTERNS.NO_EXT, file_info.no_ext)
-  return prepared_command
+  return command:gsub(FILENAME_PATTERNS.FULL, file_info.full_path):gsub(FILENAME_PATTERNS.NO_EXT, file_info.no_ext)
 end
 
 ---Get the command to run for a task
@@ -105,18 +103,50 @@ end
 ---@param file_info table The file information
 ---@return string
 function TaskRunner:get_task_command(task, file_info)
-  local command = type(task) == "table" and task.cmd or task
+  local command = type(task) == "table" and task.cmd or tostring(task)
   local args = type(task) == "table" and task.args or ""
-  command = command .. (#args > 0 and " " .. args or "")
-  command = self:prepare_command(command, file_info)
-  return command
+
+  if #args > 0 then
+    command = command .. " " .. args
+  end
+
+  return self:prepare_command(command, file_info)
+end
+
+---Execute a command
+---@param command string The command to execute
+---@param term boolean Run command in terminal or not
+---@return boolean, string?
+function TaskRunner:execute_command(command, term)
+  if term == true then
+    vim.cmd("split | term " .. command)
+    vim.cmd("startinsert")
+    return true, nil
+  end
+
+  local output = vim.fn.system(command)
+  return vim.v.shell_error == 0, output
+end
+
+---Display task execution output
+---@param task_name string Name of the task
+---@param msg_type string Type of message (e.g., "Prelaunch", "Main")
+---@param msg string? The message content
+---@param success boolean Whether the task succeeded
+function TaskRunner:echo_task_output(task_name, msg_type, msg, success)
+  if msg == "" then
+    return
+  end
+
+  local highlight = success and "None" or "ErrorMsg"
+  echo_message(msg_type .. " task '" .. task_name .. "' output:\n" .. msg, highlight)
 end
 
 ---Execute a task
 ---@param task_name string The name of the task to execute
 ---@param available_tasks table The available tasks
 ---@param file_info table The file information
----@param is_prelaunch? boolean Whether this is a prelaunch task
+---@param is_prelaunch? boolean Whether this is a prelaunch
 ---@return boolean, string?
 function TaskRunner:execute_task(task_name, available_tasks, file_info, is_prelaunch)
   local task = available_tasks[task_name]
@@ -127,28 +157,19 @@ function TaskRunner:execute_task(task_name, available_tasks, file_info, is_prela
   local should_run = true
   if task.prelaunch then
     local prelaunch_ok, prelaunch_msg = self:execute_task(task.prelaunch, available_tasks, file_info, true)
-    if not prelaunch_ok then
-      echo_message("Prelaunch task '" .. task.prelaunch .. "' error messages:\n" .. prelaunch_msg, "ErrorMsg")
-      should_run = false
-    end
+    self:echo_task_output(task.prelaunch, "Prelaunch", prelaunch_msg, prelaunch_ok)
+    should_run = prelaunch_ok
   end
 
   local command = self:get_task_command(task, file_info)
 
-  if is_prelaunch then
-    local output = vim.fn.system(command)
+  if is_prelaunch == true then
+    return self:execute_command(command, false)
+  end
 
-    if vim.v.shell_error ~= 0 then
-      echo_message("Prelaunch task '" .. task_name .. "' command failed: " .. command .. "\n", "ErrorMsg")
-      return false, output
-    end
-
-    if output ~= "" then
-      echo_message("Prelaunch task '" .. task_name .. "' output:\n" .. output)
-    end
-  elseif should_run then
-    vim.cmd("split | term " .. command)
-    vim.cmd("startinsert")
+  if should_run then
+    local ok, msg = self:execute_command(command, task.term == nil and true or task.term)
+    self:echo_task_output(task_name, "Main", msg or "", ok)
   end
 
   return true, nil
