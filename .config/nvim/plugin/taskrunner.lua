@@ -40,11 +40,12 @@ end
 
 ---@class TaskRunner The TaskRunner class
 local TaskRunner = {}
+TaskRunner.__index = TaskRunner
 
 ---Create a new TaskRunner instance
 ---@return TaskRunner
 function TaskRunner.new()
-  local self = setmetatable({}, { __index = TaskRunner })
+  local self = setmetatable({}, TaskRunner)
   return self
 end
 
@@ -55,10 +56,13 @@ function TaskRunner:load_tasks()
     return nil, "tasks.lua doesn't exist"
   end
 
-  package.loaded.tasks = nil
+  if package.loaded.tasks then
+    package.loaded.tasks = nil
+  end
+
   local ok, tasks = pcall(require, "tasks")
   if not ok then
-    return nil, "Error loading tasks.lua:\n" .. tasks
+    return nil, "Failed to load tasks module:\n" .. tasks
   end
   return tasks
 end
@@ -69,6 +73,10 @@ end
 ---@return table?, string?
 function TaskRunner:get_filetype_tasks(tasks, file_info)
   local filetype_mappings_from_tasks = tasks.filetype_mappings or {}
+  if type(filetype_mappings_from_tasks) ~= "table" then
+    filetype_mappings_from_tasks = {}
+  end
+
   local merged_filetype_map = vim.tbl_deep_extend("force", {}, FILETYPE_MAP, filetype_mappings_from_tasks)
 
   local filetype = merged_filetype_map[file_info.extension] or file_info.extension
@@ -81,10 +89,14 @@ function TaskRunner:get_filetype_tasks(tasks, file_info)
 
   if type(filetype_tasks) == "string" then
     filetype_tasks = { [file_info.extension] = filetype_tasks }
+  elseif type(filetype_tasks) ~= "table" then
+    filetype_tasks = {}
   end
 
   if type(all_tasks) == "string" then
     all_tasks = { all = all_tasks }
+  elseif type(all_tasks) ~= "table" then
+    all_tasks = {}
   end
 
   return vim.tbl_deep_extend("keep", filetype_tasks or {}, all_tasks or {})
@@ -134,7 +146,7 @@ end
 ---@param msg string? The message content
 ---@param success boolean Whether the task succeeded
 function TaskRunner:echo_task_output(task_name, msg_type, msg, success)
-  if msg == "" then
+  if not msg or msg == "" then
     return
   end
 
@@ -282,7 +294,3 @@ end, {
     end
   end,
 })
-
-vim.keymap.set("n", "<c-b>", "<cmd>Task run<cr>")
-vim.keymap.set("n", "<leader>cb", "<cmd>Task build<cr>")
-vim.keymap.set("n", "<leader>fs", "<cmd>Task<cr>")
