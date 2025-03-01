@@ -16,7 +16,11 @@ local FILETYPE_MAP = {
 ---@param filename string The file to check
 ---@return boolean
 local function file_exists(filename)
-  return vim.uv.fs_stat(filename) ~= nil
+  local cwd = vim.uv.cwd()
+  if vim.fn.filereadable(cwd .. "/" .. filename) == 1 then
+    return true
+  end
+  return false
 end
 
 ---Echo a message to the user
@@ -127,9 +131,14 @@ end
 
 ---Execute a command
 ---@param command string The command to execute
----@param term boolean Run command in terminal or not
+---@param term? boolean Run command in terminal or not
 ---@return boolean, string?
 function TaskRunner:execute_command(command, term)
+  if command:sub(1, 1) == "!" then
+    vim.cmd(command:sub(2))
+    return true, nil
+  end
+
   if term == true then
     vim.cmd("split | term " .. command)
     vim.cmd("startinsert")
@@ -176,7 +185,7 @@ function TaskRunner:execute_task(task_name, available_tasks, file_info, is_prela
   local command = self:get_task_command(task, file_info)
 
   if is_prelaunch == true then
-    return self:execute_command(command, false)
+    return self:execute_command(command)
   end
 
   if should_run then
