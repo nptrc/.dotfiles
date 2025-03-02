@@ -1,0 +1,89 @@
+{
+  "example tasks.lua file": {
+    "prefix": "tasks",
+    "body": [
+      "-- Available placeholders:",
+      "--   \\${fileName}       -> Full file name (e.g., my_script.py)",
+      "--   \\${fileNameNoExt}  -> File name without extension (e.g., my_script)",
+      "--",
+      "-- Task definitions:",
+      "--   Tasks can be defined as simple strings (commands) or as tables with options.",
+      "--",
+      "-- The following options are available:",
+      "--   all: table - Tasks to run for all filetypes",
+      "--   cmd: string (required) - The command to run",
+      "--     if cmd start with '!', vim command will be run, example \"!e test.txt\" will be :e test.txt",
+      "--   args: string - Additional arguments to pass to the command",
+      "--   term: boolean - Whether to run the command in a terminal buffer, defaults to true",
+      "--   desc: string - Description of the task",
+      "--   prelaunch: string - Task to run before the main task",
+      "--   filetype_mappings: table - Filetype mappings for tasks",
+      "",
+      "return {",
+      "  $0",
+      "}"
+    ],
+    "description": "example tasks.lua file"
+  },
+
+  "example tasks for cmake": {
+    "prefix": "t_cmake",
+    "body": [
+      "filetype_mappings = {",
+      "  c = \"cmake\",",
+      "  cpp = \"cmake\",",
+      "},",
+      "cmake = {",
+      "  generate = \"!CMakeGenerate\",",
+      "  build = \"!CMakeBuild\",",
+      "  run = \"!CMakeRunCurrentFile\",",
+      "  run_2 = \"!CMakeRun\",",
+      "  clean = \"!CMakeClean\",",
+      "  debug = \"!CMakeDebug\",",
+      "},"
+    ],
+    "description": "example tasks for cmake"
+  },
+
+  "example tasks for c": {
+    "prefix": "t_c",
+    "body": [
+      "c = {",
+      "  build = {",
+      "    cmd = \"gcc -o \\${fileNameNoExt} \\${fileName}\",",
+      "    args = \"-g\",",
+      "  },",
+      "  run = {",
+      "    cmd = \"./\\${fileNameNoExt}\",",
+      "    prelaunch = \"build\",",
+      "  },",
+      "  clean = {",
+      "    cmd = \"rm \\${fileNameNoExt}\",",
+      "    term = false",
+      "  },",
+      "},"
+    ],
+    "description": "example tasks for c"
+  },
+
+  "example tasks for c++": {
+    "prefix": "t_cpp",
+    "body": [
+      "cpp = {",
+      "  build = {",
+      "    cmd = \"g++ -o \\${fileNameNoExt} \\${fileName}\",",
+      "    args = \"-g\",",
+      "  },",
+      "  run = {",
+      "    cmd = \"./\\${fileNameNoExt}\",",
+      "    prelaunch = \"build\",",
+      "  },",
+      "  clean = {",
+      "    cmd = \"rm \\${fileNameNoExt}\",",
+      "    term = false",
+      "  },",
+      "},"
+    ],
+    "description": "example tasks for c++"
+  }
+}
