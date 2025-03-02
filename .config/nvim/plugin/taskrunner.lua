@@ -1,7 +1,7 @@
-if vim.g.loaded_tasks_plugin then
+if vim.g.loaded_taskrunner_plugin then
   return
 end
-vim.g.loaded_tasks_plugin = true
+vim.g.loaded_taskrunner_plugin = true
 
 local TASKS_FILE = vim.fs.normalize("tasks.lua")
 local FILENAME_PATTERNS = {
@@ -211,7 +211,7 @@ function TaskRunner:select_and_run_task(available_tasks, file_info)
 
     table.insert(choices, {
       value = task_name,
-      display = task_name .. (desc ~= "" and " (" .. desc .. ")" or ""),
+      display = desc ~= "" and desc or task_name,
     })
   end
 
