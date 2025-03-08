@@ -11,4 +11,5 @@ opt.guicursor = "n-v-c-sm-i-ci-ve-r-cr-o:block"
 
 vim.cmd("cnoreabbrev W  w")
 vim.cmd("cnoreabbrev Wq wq")
+vim.cmd("cnoreabbrev Wqa wqa")
 vim.cmd("cnoreabbrev WQ wq")
