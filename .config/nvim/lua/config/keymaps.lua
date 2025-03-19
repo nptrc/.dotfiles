@@ -1,9 +1,10 @@
 local map = vim.keymap.set
 
-map("i", "jk", "<esc>", { desc = "Back to normal mode" })
+map("i", "jk", "<esc>", { desc = "Exit Insert Mode" })
+map("t", "<leader>m", "<c-\\><c-n>", { desc = "Exit Terminal Mode" })
 
-map("n", "<c-c>", "<cmd>%y+<cr>", { desc = "Copy whole file" })
+map("n", "<c-c>", "<cmd>%y+<cr>", { desc = "Copy Whole File" })
 
-map("n", "<c-b>", "<cmd>Task run<cr>")
-map("n", "<leader>cb", "<cmd>Task build<cr>")
-map("n", "<leader>fs", "<cmd>Task<cr>")
+map("n", "<c-b>", "<cmd>Task run<cr>", { desc = "Task Run" })
+map("n", "<leader>cb", "<cmd>Task build<cr>", { desc = "Task Build" })
+map("n", "<leader>fs", "<cmd>Task<cr>", { desc = "Task Manager" })

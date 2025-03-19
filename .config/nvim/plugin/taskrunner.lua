@@ -5,10 +5,41 @@ vim.g.loaded_taskrunner_plugin = true
 
 local TASKS_FILE = vim.fs.normalize("tasks.lua")
 local FILENAME_PATTERNS = {
-  FILE = "${file}", -- absolute path to file
-  FILE_NO_EXT = "${fileNoExt}", -- absolute path to file without extension
-  FILE_NAME = "${fileName}", -- only the file name
-  FILE_NAME_NO_EXT = "${fileNameNoExt}", -- only the file name without extension
+  WORKSPACE_FOLDER = {
+    pattern = "${workspaceFolder}",
+    replacement = vim.fn.getcwd(),
+    desc = "Current working directory path",
+  },
+  WORKSPACE_FOLDER_BASE_NAME = {
+    pattern = "${workspaceFolder}",
+    replacement = vim.fn.getcwd():match("[^/]+$"),
+    desc = "Current working directory name",
+  },
+  FILE = {
+    pattern = "${file}",
+    modifier = "%:p",
+    desc = "Currently opened file",
+  },
+  FILE_RELATIVE = {
+    pattern = "${relativeFile}",
+    modifier = "%:p:.",
+    desc = "Currently opened file relative to workspaceFolder",
+  },
+  FILE_BASE_NAME = {
+    pattern = "${fileBasename}",
+    modifier = "%:t",
+    desc = "Currently opened file's basename",
+  },
+  FILE_BASE_NAME_NO_EXT = {
+    pattern = "${fileBasenameNoExtension}",
+    modifier = "%:t:r",
+    desc = "Currently opened file's basename with no file extension",
+  },
+  FILE_EXT_NAME = {
+    pattern = "${fileExtname}",
+    modifier = "%:e",
+    desc = "Currently opened file's extension",
+  },
 }
 local FILETYPE_MAP = {
   -- Python
@@ -29,10 +60,7 @@ local FILETYPE_MAP = {
 
   -- C/C++
   h = "c",
-  cc = "cpp",
-  cxx = "cpp",
   hpp = "cpp",
-  hxx = "cpp",
 
   -- C#
   cs = "csharp",
@@ -67,23 +95,25 @@ end
 
 ---Echo a message to the user
 ---@param msg string The message to display
----@param highlight? string The highlight group to use
----@param history? boolean Whether to add the message to the command history
-local function echo_message(msg, highlight, history)
-  vim.api.nvim_echo({ { "[Task] " .. msg, highlight or "Normal" } }, history or true, {})
+---@param type? string The highlight group to use
+local function echo_message(msg, type)
+  if type == "Error" then
+    vim.api.nvim_notify(msg, vim.log.levels.ERROR, {})
+  elseif type == "Info" then
+    vim.api.nvim_notify(msg, vim.log.levels.INFO, {})
+  else
+    vim.api.nvim_echo({ { msg, "Normal" } }, true, {})
+  end
 end
 
 ---Get information about the current file
 ---@return table
 local function get_current_file_info()
-  local file = vim.fn.expand("%:p")
-  return {
-    file = file,
-    fileNoExt = vim.fn.fnamemodify(file, ":r"),
-    fileName = vim.fn.fnamemodify(file, ":t"),
-    fileNameNoExt = vim.fn.fnamemodify(file, ":t:r"),
-    extension = vim.fn.fnamemodify(file, ":e"),
-  }
+  local file_info = {}
+  for pattern, info in pairs(FILENAME_PATTERNS) do
+    file_info[pattern] = info.replacement or vim.fn.expand(info.modifier)
+  end
+  return file_info
 end
 
 ---@class TaskRunner
@@ -124,11 +154,11 @@ end
 ---@return table?
 function TaskRunner:get_ft_tasks(file_info, tasks)
   local filetype_map = vim.tbl_deep_extend("force", FILETYPE_MAP, tasks.ft_mappings or {})
-  local ft = filetype_map[file_info.extension] or file_info.extension
+  local ft = filetype_map[file_info["FILE_EXT_NAME"]] or file_info["FILE_EXT_NAME"]
   local ft_tasks = tasks[ft]
   local all_tasks = vim.tbl_extend("force", tasks.all or {}, ft_tasks or {})
   if vim.tbl_isempty(all_tasks) then
-    echo_message("No tasks found for " .. file_info.extension, "Error")
+    echo_message("No tasks found for " .. file_info["FILE_EXT_NAME"], "Error")
     return nil
   end
   return all_tasks
@@ -139,56 +169,57 @@ end
 ---@return string, nil
 function TaskRunner:prepare_command(command)
   local file_info = get_current_file_info()
+  for pattern, info in pairs(FILENAME_PATTERNS) do
+    command = command:gsub(info.pattern, file_info[pattern])
+  end
   return command
-    :gsub(FILENAME_PATTERNS.FILE, file_info.file)
-    :gsub(FILENAME_PATTERNS.FILE_NO_EXT, file_info.fileNoExt)
-    :gsub(FILENAME_PATTERNS.FILE_NAME, file_info.fileName)
-    :gsub(FILENAME_PATTERNS.FILE_NAME_NO_EXT, file_info.fileNameNoExt)
 end
 
 ---Get the command to run a task
 ---@param task table The task to run
----@return string
+---@return boolean?, string
 function TaskRunner:get_task_command(task)
   if type(task) == "string" then
-    task = { cmd = task }
+    echo_message("Task should be a table", "Error")
+    return nil, ""
   end
 
   local cmd = task.cmd
   local cmd_args = task.args or ""
   local command = cmd .. " " .. cmd_args
-  return self:prepare_command(command)
+  return true, self:prepare_command(command)
 end
 
 ---Execute a command
 ---@param command string The command to execute
 ---@param term boolean Whether to run the command in a terminal
+---@param no_echo? boolean Whether to echo the output
 ---@return boolean?
-function TaskRunner:execute_command(command, term)
+function TaskRunner:execute_command(command, term, no_echo)
   if command:sub(1, 1) == "!" then
     vim.cmd(command:sub(2, command:len() - 1))
     return true
   end
 
   if term == true then
-    vim.cmd("sp | term " .. command)
-    vim.cmd("setlocal nobuflisted bufhidden=wipe")
-    vim.cmd("startinsert")
+    Snacks.terminal.toggle(command, {
+      cwd = vim.uv.cwd(),
+      auto_close = false,
+    })
     return true
   end
 
   local output = vim.fn.system(command)
-  if vim.v.shell_error == 0 then
-    if output == "" then
-      echo_message("Task completed successfully")
-    else
-      echo_message("\n" .. output)
-    end
-    return true
-  else
+  local success = vim.v.shell_error == 0
+
+  if success and not no_echo then
+    echo_message(output == "" and "Task completed successfully" or "\n" .. output, "Info")
+  elseif not success then
     echo_message("Error running command: " .. command .. "\n" .. output, "Error")
     return nil
   end
+
+  return success
 end
 
 ---Run a task
@@ -217,12 +248,16 @@ function TaskRunner:run_task(ft_task, task_name, is_prelaunch)
     end
   end
 
-  local command = self:get_task_command(task)
+  local command_ok, command = self:get_task_command(task)
+  if not command_ok then
+    self.visited = {}
+    return
+  end
 
   if not is_prelaunch then
     self:execute_command(command, task.term == nil and true or task.term)
   else
-    return self:execute_command(command, false)
+    return self:execute_command(command, false, true)
   end
 
   self.visited = {}
@@ -233,30 +268,15 @@ end
 function TaskRunner:select_and_run_task(ft_tasks)
   local tasks_list = {}
 
-  for task_name, task_data in pairs(ft_tasks) do
-    local task_desc = ""
-    if task_data.desc then
-      task_desc = "(" .. task_data.desc .. ")"
-    end
-
-    table.insert(tasks_list, {
-      name = task_name,
-      desc = task_desc,
-    })
+  for task_name, _ in pairs(ft_tasks) do
+    table.insert(tasks_list, task_name)
   end
-
-  table.sort(tasks_list, function(a, b)
-    return a.name < b.name
-  end)
 
   vim.ui.select(tasks_list, {
     prompt = "Select a task to run",
-    format_item = function(item)
-      return item.name .. " " .. item.desc
-    end,
   }, function(task)
     if task then
-      self:run_task(ft_tasks, task.name)
+      self:run_task(ft_tasks, task)
     end
   end)
 end

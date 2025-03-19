@@ -30,6 +30,7 @@ export FZF_DEFAULT_OPTS="
     --color=selected-bg:#45475a \
 "
 export MANPAGER="nvim +Man!"
+export BAT_THEME="Catppuccin Mocha"
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
