@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 
 map("i", "jk", "<esc>", { desc = "Exit Insert Mode" })
-map("t", "<leader>m", "<c-\\><c-n>", { desc = "Exit Terminal Mode" })
+map("t", "<c-,>", "<c-\\><c-n>", { desc = "Exit Terminal Mode" })
 
 map("n", "<c-c>", "<cmd>%y+<cr>", { desc = "Copy Whole File" })
 

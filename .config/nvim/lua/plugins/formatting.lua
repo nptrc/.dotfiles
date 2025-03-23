@@ -17,6 +17,7 @@ return {
         cpp = { "clang-format" },
         cmake = { "cmake_format" },
         rust = { "rustfmt" },
+        python = { "ruff_format" },
       },
     },
   },
