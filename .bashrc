@@ -1,6 +1,6 @@
 source $HOME/.bash_aliases
 
-export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin:$HOME/flutter/bin:$PATH"
 
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
     . /usr/share/bash-completion/bash_completion
@@ -28,6 +28,7 @@ export FZF_DEFAULT_OPTS="
 "
 export MANPAGER="nvim +Man!"
 export BAT_THEME="Catppuccin Mocha"
+export MENUCONFIG_STYLE="monochrome"
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"

@@ -98,9 +98,9 @@ end
 ---@param type? string The highlight group to use
 local function echo_message(msg, type)
   if type == "Error" then
-    vim.api.nvim_notify(msg, vim.log.levels.ERROR, {})
+    vim.notify(msg, vim.log.levels.ERROR, { title = "TaskRunner" })
   elseif type == "Info" then
-    vim.api.nvim_notify(msg, vim.log.levels.INFO, {})
+    vim.notify(msg, vim.log.levels.INFO, { title = "TaskRunner" })
   else
     vim.api.nvim_echo({ { msg, "Normal" } }, true, {})
   end
