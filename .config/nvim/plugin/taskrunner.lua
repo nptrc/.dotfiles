@@ -102,7 +102,7 @@ local function echo_message(msg, type)
   elseif type == "Info" then
     vim.notify(msg, vim.log.levels.INFO, { title = "TaskRunner" })
   else
-    vim.api.nvim_echo({ { msg, "Normal" } }, true, {})
+    vim.notify(msg, vim.log.levels.OFF, { title = "TaskRunner" })
   end
 end
 
@@ -328,3 +328,12 @@ end, {
     return completions
   end,
 })
+
+vim.api.nvim_create_user_command("TaskHelper", function()
+  local str = ""
+  for _, info in pairs(FILENAME_PATTERNS) do
+    str = str .. info.pattern .. " -> " .. info.desc .. "\n"
+  end
+  str = str:sub(1, -2)
+  echo_message(str)
+end, {})
