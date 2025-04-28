@@ -1,6 +1,6 @@
 local function setup_clangd_cmd()
   local esp_idf_path = os.getenv("IDF_PATH")
-  local clangd_opts = { "clangd" }
+  local clangd_opts = { vim.fn.stdpath("data") .. "/mason/bin/clangd" }
 
   if esp_idf_path then
     clangd_opts = {
@@ -30,6 +30,8 @@ return {
       clangd = {
         cmd = setup_clangd_cmd(),
       },
+      html = {},
+      cssls = {},
     },
   },
 }
