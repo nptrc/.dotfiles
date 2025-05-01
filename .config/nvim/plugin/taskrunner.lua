@@ -53,6 +53,9 @@ local FILETYPE_MAP = {
   rs = "rust",
   cargo = "rust",
 
+  -- Javascript
+  js = "javascript",
+
   -- Assembly
   s = "asm",
   asm = "asm",
