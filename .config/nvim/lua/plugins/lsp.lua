@@ -3,10 +3,7 @@ local function setup_clangd_cmd()
   local clangd_opts = { vim.fn.stdpath("data") .. "/mason/bin/clangd" }
 
   if esp_idf_path then
-    clangd_opts = {
-      "/home/nptrc/.espressif/tools/esp-clang/esp-18.1.2_20240912/esp-clang/bin/clangd",
-      "--query-driver=**",
-    }
+    clangd_opts = { "clangd", "--query-driver=**" }
   end
 
   return vim.tbl_extend("keep", clangd_opts, {

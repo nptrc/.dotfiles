@@ -1,7 +1,6 @@
 local opt = vim.opt
 
 vim.g.snacks_animate = false
-vim.g.border_style = "single"
 
 opt.tabstop = 4
 opt.softtabstop = 4

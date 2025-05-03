@@ -3,16 +3,55 @@ return {
     "folke/snacks.nvim",
     opts = {
       image = {},
-    },
-  },
 
-  {
-    "folke/noice.nvim",
-    opts = {
-      views = {
-        popup = { border = { style = vim.g.border_style } },
-        cmdline_popup = { border = { style = vim.g.border_style } },
-        cmdline_popupmenu = { border = { style = vim.g.border_style } },
+      lazygit = {
+        win = {
+          position = "float",
+          height = 0,
+          width = 0,
+        },
+      },
+
+      terminal = {
+        win = {
+          position = "bottom",
+          height = 0.5,
+          wo = { winbar = "" },
+        },
+      },
+
+      picker = {
+        sources = {
+          files = {
+            hidden = true,
+          },
+          explorer = {
+            hidden = true,
+          },
+        },
+        layouts = {
+          default = {
+            layout = {
+              box = "horizontal",
+              width = 0.8,
+              min_width = 120,
+              height = 0.9,
+              {
+                box = "vertical",
+                border = "rounded",
+                title = "{title} {live} {flags}",
+                { win = "input", height = 1, border = "bottom" },
+                { win = "list", border = "none" },
+              },
+              { win = "preview", title = "{preview}", border = "rounded", width = 0.6 },
+            },
+          },
+          sidebar = {
+            layout = {
+              width = 30,
+            },
+          },
+        },
       },
     },
   },
