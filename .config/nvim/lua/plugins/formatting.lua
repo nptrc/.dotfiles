@@ -7,6 +7,7 @@ return {
         opts = {
           ensure_installed = {
             "clang-format",
+            "prettierd",
           },
         },
       },
@@ -18,6 +19,11 @@ return {
         cmake = { "cmake_format" },
         rust = { "rustfmt" },
         python = { "ruff_format" },
+      },
+      formatters = {
+        prettier = {
+          command = vim.fn.stdpath("data") .. "/mason/bin/prettierd",
+        },
       },
     },
   },
