@@ -1,9 +1,23 @@
 local function setup_clangd_cmd()
-  local esp_idf_path = os.getenv("IDF_PATH")
   local clangd_opts = { vim.fn.stdpath("data") .. "/mason/bin/clangd" }
 
-  if esp_idf_path then
-    clangd_opts = { "clangd", "--query-driver=**" }
+  if os.getenv("IDF_PATH") then
+    local home = vim.env.HOME
+    local esp_clang = home .. "/.espressif/tools/esp-clang/"
+    local scandir = vim.uv.fs_scandir(esp_clang)
+    if scandir then
+      local latest_clangd
+      while true do
+        local name = vim.uv.fs_scandir_next(scandir)
+        if not name then
+          break
+        end
+        if name:match("^esp%-.+") then
+          latest_clangd = esp_clang .. "/" .. name .. "/esp-clang/bin/clangd"
+        end
+      end
+      clangd_opts = { latest_clangd, "--query-driver=**" }
+    end
   end
 
   return vim.tbl_extend("keep", clangd_opts, {
