@@ -1,140 +1,56 @@
-if vim.g.loaded_taskrunner_plugin then
-  return
-end
-vim.g.loaded_taskrunner_plugin = true
-
-local TASKS_FILE = vim.fs.normalize("tasks.lua")
-local FILENAME_PATTERNS = {
+local PLACEHOLDER_PATTERNS = {
   WORKSPACE_FOLDER = {
-    pattern = "${workspaceFolder}",
     replacement = vim.fn.getcwd(),
     desc = "Current working directory path",
   },
   WORKSPACE_FOLDER_BASE_NAME = {
-    pattern = "${workspaceFolder}",
     replacement = vim.fn.getcwd():match("[^/]+$"),
     desc = "Current working directory name",
   },
   FILE = {
-    pattern = "${file}",
     modifier = "%:p",
     desc = "Currently opened file",
   },
   FILE_RELATIVE = {
-    pattern = "${relativeFile}",
     modifier = "%:p:.",
     desc = "Currently opened file relative to workspaceFolder",
   },
   FILE_BASE_NAME = {
-    pattern = "${fileBasename}",
     modifier = "%:t",
     desc = "Currently opened file's basename",
   },
   FILE_BASE_NAME_NO_EXT = {
-    pattern = "${fileBasenameNoExtension}",
     modifier = "%:t:r",
     desc = "Currently opened file's basename with no file extension",
   },
   FILE_EXT_NAME = {
-    pattern = "${fileExtname}",
     modifier = "%:e",
     desc = "Currently opened file's extension",
   },
 }
-local FILETYPE_MAP = {
-  -- Python
-  py = "python",
-  pyi = "python",
-  pyc = "python",
-  pyd = "python",
-  pyw = "python",
-
-  -- Rust
-  rs = "rust",
-  cargo = "rust",
-
-  -- Javascript
-  js = "javascript",
-
-  -- Assembly
-  s = "asm",
-  asm = "asm",
-  nasm = "asm",
-
-  -- C/C++
+local EXT_TO_FILETYPE = {
   h = "c",
-  hpp = "cpp",
-
-  -- C#
+  nasm = "asm",
+  cargo = "rust",
   cs = "csharp",
-
-  -- Ruby
-  rb = "ruby",
-  erb = "ruby",
-
-  -- Shell scripts
   sh = "shell",
   bash = "shell",
-  zsh = "shell",
-
-  -- Markdown
-  md = "markdown",
-
-  -- Kotlin
-  kt = "kotlin",
-  kts = "kotlin",
-
-  -- Docker
-  dockerfile = "docker",
-  dockerignore = "docker",
 }
 
----@param path string path to file
----@return boolean
-local function file_exists(path)
+local M = {}
+
+M.file_exists = function(path)
   local cwd = vim.uv.cwd()
-  return vim.fn.filereadable(cwd .. "/" .. path) == 1
+  return vim.uv.fs_stat(cwd .. "/" .. path)
 end
 
----Echo a message to the user
----@param msg string The message to display
----@param type? string The highlight group to use
-local function echo_message(msg, type)
-  if type == "Error" then
-    vim.notify(msg, vim.log.levels.ERROR, { title = "TaskRunner" })
-  elseif type == "Info" then
-    vim.notify(msg, vim.log.levels.INFO, { title = "TaskRunner" })
-  else
-    vim.notify(msg, vim.log.levels.OFF, { title = "TaskRunner" })
-  end
+M.notify = function(msg, level)
+  vim.notify(msg, level, { title = "TaskRunner" })
 end
 
----Get information about the current file
----@return table
-local function get_current_file_info()
-  local file_info = {}
-  for pattern, info in pairs(FILENAME_PATTERNS) do
-    file_info[pattern] = info.replacement or vim.fn.expand(info.modifier)
-  end
-  return file_info
-end
-
----@class TaskRunner
-local TaskRunner = {}
-TaskRunner.__index = TaskRunner
-
----Create a new TaskRunner instance
----@return TaskRunner
-function TaskRunner.new()
-  local self = setmetatable({}, TaskRunner)
-  return self
-end
-
----Load tasks from tasks.lua file
----@return table?
-function TaskRunner:load_tasks()
-  if not file_exists(TASKS_FILE) then
-    echo_message("tasks.lua file not found", "Error")
+M.load_tasks = function()
+  if not M.file_exists("tasks.lua") then
+    M.notify("tasks.lua file not found", "error")
     return nil
   end
 
@@ -144,199 +60,180 @@ function TaskRunner:load_tasks()
 
   local ok, result = pcall(require, "tasks")
   if not ok then
-    echo_message("Error loading tasks.lua:\n" .. result, "Error")
-    return nil
+    M.notify("Error loading tasks.lua:\n" .. result, "error")
   end
 
   return result
 end
 
----Get tasks for the current file
----@param file_info table The current file information
----@param tasks table The tasks table
----@return table?
-function TaskRunner:get_ft_tasks(file_info, tasks)
-  local filetype_map = vim.tbl_deep_extend("force", FILETYPE_MAP, tasks.ft_mappings or {})
-  local ft = filetype_map[file_info["FILE_EXT_NAME"]] or file_info["FILE_EXT_NAME"]
-  local ft_tasks = tasks[ft]
-  local all_tasks = vim.tbl_extend("force", tasks.all or {}, ft_tasks or {})
+M.get_current_file_info = function()
+  local file_info = {}
+  for placeholder, info in pairs(PLACEHOLDER_PATTERNS) do
+    file_info[placeholder] = info.replacement or vim.fn.expand(info.modifier)
+  end
+  return file_info
+end
+
+M.get_ft_tasks = function(tasks)
+  local file_info = M.get_current_file_info()
+  local ext = file_info["FILE_EXT_NAME"]
+  local ft = vim.bo.filetype
+
+  if not tasks[ft] then
+    for lang, extension in pairs(tasks["ft_mappings"] or {}) do
+      if vim.tbl_contains(extension, ext) then
+        ft = lang
+        break
+      end
+    end
+  end
+  ft = ft or EXT_TO_FILETYPE[ext] or ext
+
+  local global_tasks = tasks["all"] or {}
+  local ft_tasks = tasks[ft] or {}
+
+  local all_tasks = vim.tbl_deep_extend("force", global_tasks, ft_tasks)
   if vim.tbl_isempty(all_tasks) then
-    echo_message("No tasks found for " .. file_info["FILE_EXT_NAME"], "Error")
+    M.notify("No tasks found for " .. ft, "info")
     return nil
   end
+
+  M.env = tasks["env"] or {}
   return all_tasks
 end
 
----Prepare a command to run
----@param command string The command to prepare
----@return string, nil
-function TaskRunner:prepare_command(command)
-  local file_info = get_current_file_info()
-  for pattern, info in pairs(FILENAME_PATTERNS) do
-    command = command:gsub(info.pattern, file_info[pattern])
+M.get_task_command = function(task_name, task)
+  local file_info = M.get_current_file_info()
+  local cmd = task["cmd"]
+  local args = task["args"] or ""
+
+  if not cmd then
+    M.notify("No command found for task " .. task_name, "error")
+    return nil
   end
+
+  local command = cmd .. (args ~= "" and " " .. args or "")
+
+  command = string.gsub(command, "(%${.-})", function(key)
+    key = string.sub(key, 3, -2)
+    local value = file_info[key]
+    if not value and string.find(key, "env%.") then
+      key = string.sub(key, 5, -1)
+      value = M.env[key]
+      if not value then
+        M.notify("Undefined placeholder: " .. key, "warn")
+        return ""
+      end
+    end
+    return value
+  end)
+
   return command
 end
 
----Get the command to run a task
----@param task table The task to run
----@return boolean?, string
-function TaskRunner:get_task_command(task)
-  if type(task) == "string" then
-    echo_message("Task should be a table", "Error")
-    return nil, ""
-  end
-
-  local cmd = task.cmd
-  local cmd_args = task.args or ""
-  local command = cmd .. " " .. cmd_args
-  return true, self:prepare_command(command)
-end
-
----Execute a command
----@param command string The command to execute
----@param term boolean Whether to run the command in a terminal
----@param no_echo? boolean Whether to echo the output
----@return boolean?
-function TaskRunner:execute_command(command, term, no_echo)
-  if command:sub(1, 1) == "!" then
-    vim.cmd(command:sub(2, command:len() - 1))
+M.execute_command = function(cmd, term, is_prelaunch)
+  if string.sub(cmd, 1, 1) == "!" then
+    vim.cmd(string.sub(cmd, 2, -1))
     return true
   end
 
   if term == true then
-    Snacks.terminal.toggle(command, {
+    Snacks.terminal.toggle(cmd, {
       cwd = vim.uv.cwd(),
       auto_close = false,
     })
     return true
   end
 
-  local output = vim.fn.system(command)
+  local output = vim.fn.system(cmd)
   local success = vim.v.shell_error == 0
 
-  if success and not no_echo then
-    echo_message(output == "" and "Task completed successfully" or "\n" .. output, "Info")
+  if success and not is_prelaunch then
+    M.notify(output == "" and "Task run successfully" or "\n" .. output, "info")
   elseif not success then
-    echo_message("Error running command: " .. command .. "\n" .. output, "Error")
+    M.notify("Error running command: " .. cmd .. "\n" .. output, "error")
     return nil
   end
 
   return success
 end
 
----Run a task
----@param ft_task table The task to run
----@param task_name string The name of the task
-function TaskRunner:run_task(ft_task, task_name, is_prelaunch)
-  local visited = self.visited or {}
-  self.visited = visited
+M.run_task = function(task_name, tasks, is_prelaunch)
+  local visited = M.visited or {}
+  M.visited = visited
 
   if visited[task_name] then
-    echo_message("Circular prelaunch detected for task: " .. task_name, "Error")
-    self.visited = nil
-    return
+    M.notify("Circular prelaunch detected for task: " .. task_name, "Error")
+    M.visited = nil
+    return nil
   end
-
   visited[task_name] = true
 
-  local task = ft_task[task_name]
+  local task = tasks[task_name]
 
-  if task.prelaunch then
-    local ok = self:run_task(ft_task, task.prelaunch, true)
-    if not ok then
-      echo_message("Prelaunch task failed", "Error")
-      self.visited = nil
+  local prelaunch_task = task.prelaunch
+  if prelaunch_task then
+    if not tasks[prelaunch_task] then
+      M.notify("Prelaunch task " .. prelaunch_task .. " not found", "error")
+      return
+    end
+    if not M.run_task(prelaunch_task, tasks, true) then
+      M.notify("Prelaunch task failed", "error")
+      M.visited = nil
       return
     end
   end
 
-  local command_ok, command = self:get_task_command(task)
-  if not command_ok then
-    self.visited = {}
-    return
+  local cmd = M.get_task_command(task_name, task)
+  if not cmd then
+    M.visited = nil
+    return nil
   end
 
   if not is_prelaunch then
-    self:execute_command(command, task.term == nil and true or task.term)
+    M.execute_command(cmd, task.term == nil and true or task.term)
+    M.visited = {}
+    return
   else
-    return self:execute_command(command, false, true)
+    return M.execute_command(cmd, false, is_prelaunch)
   end
-
-  self.visited = {}
 end
 
----Select and run a task
----@param ft_tasks table The tasks for the current file
-function TaskRunner:select_and_run_task(ft_tasks)
+M.select_and_run_task = function(ft_tasks)
   local tasks_list = {}
 
   for task_name, _ in pairs(ft_tasks) do
     table.insert(tasks_list, task_name)
   end
 
+  table.sort(tasks_list)
+
   vim.ui.select(tasks_list, {
-    prompt = "Select a task to run",
-  }, function(task)
-    if task then
-      self:run_task(ft_tasks, task)
+    prompt = "Select task to run",
+  }, function(task_name)
+    if task_name then
+      M.run_task(task_name, ft_tasks)
     end
   end)
 end
 
-local taskrunner = TaskRunner.new()
-
 vim.api.nvim_create_user_command("Task", function(opts)
   local task_name = opts.args
 
-  local tasks = taskrunner:load_tasks()
+  local tasks = M.load_tasks()
   if not tasks then
     return
   end
 
-  local file_info = get_current_file_info()
-  local ft_tasks = taskrunner:get_ft_tasks(file_info, tasks)
+  local ft_tasks = M.get_ft_tasks(tasks)
   if not ft_tasks then
     return
   end
 
   if not task_name or not ft_tasks[task_name] then
-    taskrunner:select_and_run_task(ft_tasks)
+    M.select_and_run_task(ft_tasks)
     return
   end
 
-  taskrunner:run_task(ft_tasks, task_name)
-end, {
-  nargs = "?",
-  complete = function(arg_lead)
-    local tasks = taskrunner:load_tasks()
-    if not tasks then
-      return {}
-    end
-
-    local file_info = get_current_file_info()
-    local ft_tasks = taskrunner:get_ft_tasks(file_info, tasks)
-    if not ft_tasks then
-      return {}
-    end
-
-    local completions = {}
-
-    for task_name, _ in pairs(ft_tasks) do
-      if task_name:lower():find(arg_lead:lower(), 1, true) then
-        table.insert(completions, task_name)
-      end
-    end
-
-    return completions
-  end,
-})
-
-vim.api.nvim_create_user_command("TaskHelper", function()
-  local str = ""
-  for _, info in pairs(FILENAME_PATTERNS) do
-    str = str .. info.pattern .. " -> " .. info.desc .. "\n"
-  end
-  str = str:sub(1, -2)
-  echo_message(str)
-end, {})
+  M.run_task(task_name, ft_tasks)
+end, { nargs = "?" })
