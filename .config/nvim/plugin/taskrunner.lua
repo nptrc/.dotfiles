@@ -99,6 +99,7 @@ M.get_ft_tasks = function(tasks)
   end
 
   M.env = tasks["env"] or {}
+  M.term_opts = tasks["term_opts"] or {}
   return all_tasks
 end
 
@@ -141,6 +142,7 @@ M.execute_command = function(cmd, term, is_prelaunch)
     Snacks.terminal.toggle(cmd, {
       cwd = vim.uv.cwd(),
       auto_close = false,
+      win = M["term_opts"],
     })
     return true
   end

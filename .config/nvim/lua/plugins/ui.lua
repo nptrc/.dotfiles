@@ -6,7 +6,7 @@ return {
 
       lazygit = {
         win = {
-          position = "float",
+          border = "none",
           height = 0,
           width = 0,
         },
@@ -14,9 +14,10 @@ return {
 
       terminal = {
         win = {
-          position = "bottom",
-          height = 0.5,
-          wo = { winbar = "" },
+          position = "float",
+          border = "single",
+          height = 0.9,
+          width = 0.8,
         },
       },
 
