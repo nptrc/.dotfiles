@@ -5,7 +5,6 @@ alias ls="eza -la --color=always"
 alias grep="grep --color=always"
 
 alias vi="nvim"
-alias nv="neovide --fork"
 alias svi="sudo vim"
 
 alias idf="idf.py"
