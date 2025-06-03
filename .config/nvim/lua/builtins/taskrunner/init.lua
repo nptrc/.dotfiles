@@ -1,3 +1,8 @@
+local DEFAULT_TASKS = require("builtins.taskrunner.tasks").filetypes
+local PROJECT_TASKS = require("builtins.taskrunner.tasks").projects
+
+local H = require("builtins.taskrunner.helpers")
+
 local PLACEHOLDER_PATTERNS = {
   WORKSPACE_FOLDER = {
     replacement = vim.fn.getcwd(),
@@ -28,42 +33,24 @@ local PLACEHOLDER_PATTERNS = {
     desc = "Currently opened file's extension",
   },
 }
-local EXT_TO_FILETYPE = {
-  h = "c",
-  nasm = "asm",
-  cargo = "rust",
-  cs = "csharp",
-  sh = "shell",
-  bash = "shell",
-}
 
 local M = {}
 
-M.file_exists = function(path)
-  local cwd = vim.uv.cwd()
-  return vim.uv.fs_stat(cwd .. "/" .. path)
-end
-
-M.notify = function(msg, level)
-  vim.notify(msg, level, { title = "TaskRunner" })
-end
-
 M.load_tasks = function()
-  if not M.file_exists("tasks.lua") then
-    M.notify("tasks.lua file not found", "error")
-    return nil
+  local tasks = {}
+  if H.file_exists("tasks.lua") then
+    if package.loaded.tasks then
+      package.loaded.tasks = nil
+    end
+
+    local ok, result = pcall(require, "tasks")
+    if not ok then
+      H.notify("Error loading tasks.lua:\n" .. result, "error")
+    end
+    tasks = result
   end
 
-  if package.loaded.tasks then
-    package.loaded.tasks = nil
-  end
-
-  local ok, result = pcall(require, "tasks")
-  if not ok then
-    M.notify("Error loading tasks.lua:\n" .. result, "error")
-  end
-
-  return result
+  return vim.tbl_deep_extend("force", DEFAULT_TASKS, tasks)
 end
 
 M.get_current_file_info = function()
@@ -87,14 +74,33 @@ M.get_ft_tasks = function(tasks)
       end
     end
   end
-  ft = ft or EXT_TO_FILETYPE[ext] or ext
+  ft = ft or ext
 
-  local global_tasks = tasks["all"] or {}
+  local global_tasks = tasks["global"] or {}
   local ft_tasks = tasks[ft] or {}
 
   local all_tasks = vim.tbl_deep_extend("force", global_tasks, ft_tasks)
+
+  local selected = nil
+  for _, info in pairs(PROJECT_TASKS) do
+    for _, marker in ipairs(info.root_markers) do
+      if H.file_exists(marker) then
+        if not selected or (info.priority or 0) > (selected.priority or 0) then
+          selected = info
+        end
+        break
+      end
+    end
+  end
+
+  if selected then
+    for name, task in pairs(selected.tasks) do
+      all_tasks[name] = task
+    end
+  end
+
   if vim.tbl_isempty(all_tasks) then
-    M.notify("No tasks found for " .. ft, "info")
+    H.notify("No tasks found for " .. ft, "info")
     return nil
   end
 
@@ -109,7 +115,7 @@ M.get_task_command = function(task_name, task)
   local args = task["args"] or ""
 
   if not cmd then
-    M.notify("No command found for task " .. task_name, "error")
+    H.notify("No command found for task " .. task_name, "error")
     return nil
   end
 
@@ -122,7 +128,7 @@ M.get_task_command = function(task_name, task)
       key = string.sub(key, 5, -1)
       value = M.env[key]
       if not value then
-        M.notify("Undefined placeholder: " .. key, "warn")
+        H.notify("Undefined placeholder: " .. key, "warn")
         return ""
       end
     end
@@ -147,13 +153,19 @@ M.execute_command = function(cmd, term, is_prelaunch)
     return true
   end
 
-  local output = vim.fn.system(cmd)
+  local output = vim.fn.systemlist(cmd)
   local success = vim.v.shell_error == 0
 
   if success and not is_prelaunch then
-    M.notify(output == "" and "Task run successfully" or "\n" .. output, "info")
+    if output == "" then
+      H.notify("Task run successfully", "info")
+    else
+      vim.fn.setqflist({}, "r", { lines = output })
+      vim.cmd("copen")
+    end
   elseif not success then
-    M.notify("Error running command: " .. cmd .. "\n" .. output, "error")
+    vim.fn.setqflist({}, "r", { lines = output })
+    vim.cmd("copen")
     return nil
   end
 
@@ -165,7 +177,7 @@ M.run_task = function(task_name, tasks, is_prelaunch)
   M.visited = visited
 
   if visited[task_name] then
-    M.notify("Circular prelaunch detected for task: " .. task_name, "Error")
+    H.notify("Circular prelaunch detected for task: " .. task_name, "Error")
     M.visited = nil
     return nil
   end
@@ -176,11 +188,10 @@ M.run_task = function(task_name, tasks, is_prelaunch)
   local prelaunch_task = task.prelaunch
   if prelaunch_task then
     if not tasks[prelaunch_task] then
-      M.notify("Prelaunch task " .. prelaunch_task .. " not found", "error")
+      H.notify("Prelaunch task " .. prelaunch_task .. " not found", "error")
       return
     end
     if not M.run_task(prelaunch_task, tasks, true) then
-      M.notify("Prelaunch task failed", "error")
       M.visited = nil
       return
     end
