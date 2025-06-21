@@ -8,27 +8,27 @@ return {
     },
     c = {
       build = {
-        cmd = "mkdir -p build && gcc ${FILE} -o ./build/${FILE_BASE_NAME_NO_EXT}",
+        cmd = "mkdir -p build && gcc % -o ./build/%:t:r",
         args = "-Wall -Werror -g",
       },
       run = {
-        cmd = "./build/${FILE_BASE_NAME_NO_EXT}",
+        cmd = "./build/%:t:r",
         prelaunch = "build",
       },
     },
     cpp = {
       build = {
-        cmd = "mkdir -p build && g++ ${FILE} -o ./build/${FILE_BASE_NAME_NO_EXT}",
+        cmd = "mkdir -p build && g++ % -o ./build/%:t:r",
         args = "-Wall -Werror -g",
       },
       run = {
-        cmd = "./build/${FILE_BASE_NAME_NO_EXT}",
+        cmd = "./build/%:t:r",
         prelaunch = "build",
       },
     },
     python = {
       run = {
-        cmd = "python3 ${FILE}",
+        cmd = "python3 %",
       },
     },
   },
@@ -44,7 +44,7 @@ return {
         run = { cmd = "pio run -t upload -t monitor" },
         compiledb = { cmd = "pio run -t compiledb" },
         clean = { cmd = "pio run -t clean" },
-        home = { cmd = "pio home --shutdown-timeout 1", term = false },
+        home = { cmd = "pio home --shutdown-timeout 1" },
       },
     },
     cmake = {
