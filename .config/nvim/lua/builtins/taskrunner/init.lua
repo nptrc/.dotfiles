@@ -78,7 +78,14 @@ M.get_task_command = function(task_name, task)
     return nil
   end
 
-  local command = cmd .. (args ~= "" and " " .. args or "")
+  local command = cmd
+  if type(args) == "string" then
+    command = command .. (args ~= "" and " " .. args or "")
+  elseif type(args) == "table" then
+    for _, arg in pairs(args) do
+      command = command .. " " .. arg
+    end
+  end
 
   return vim.fn.expandcmd(command)
 end
