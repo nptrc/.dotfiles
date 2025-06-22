@@ -1,7 +1,7 @@
 local BUILTIN_TASKS = require("builtins.taskrunner.tasks").filetypes
 local PROJECT_TASKS = require("builtins.taskrunner.tasks").projects
 
-local H = require("builtins.taskrunner.helpers")
+local H = require("builtins.helpers")
 
 local M = {}
 
@@ -23,7 +23,7 @@ M.load_tasks = function()
 end
 
 M.get_ft_tasks = function(tasks)
-  local ext = vim.fn.expand("%:r")
+  local ext = vim.fn.expand("%:e")
   local ft = vim.bo.filetype
 
   if not tasks[ft] then
@@ -104,10 +104,10 @@ M.run_task = function(task_name, tasks)
     return true
   end
 
-  cmd = "echo RUN: '" .. cmd .. "' && " .. cmd
+  cmd = string.format("echo -e \"\\x1b[1;33mRUN: '%s'\\x1b[0m\" && %s", cmd, cmd)
 
   if prelaunch_cmd then
-    cmd = 'echo RUN: "' .. prelaunch_cmd .. '" && ' .. prelaunch_cmd .. " && " .. cmd
+    cmd = string.format("echo -e \"\\x1b[1;33mRUN: '%s'\\x1b[0m\" && %s && %s", prelaunch_cmd, prelaunch_cmd, cmd)
   end
 
   Snacks.terminal.toggle(cmd, {
