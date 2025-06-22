@@ -8,3 +8,5 @@ map("n", "<c-c>", "<cmd>%y+<cr>", { desc = "Copy Whole File" })
 map("n", "<c-b>", "<cmd>Task run<cr>", { desc = "Task Run" })
 map("n", "<leader>cb", "<cmd>Task build<cr>", { desc = "Task Build" })
 map("n", "<leader>fs", "<cmd>Task<cr>", { desc = "Task Manager" })
+
+map("n", "<leader>rl", "<cmd>ReloadPlugin<cr>", { desc = "Reload all builtin plugins" })
