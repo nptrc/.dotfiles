@@ -1,5 +1,6 @@
-local BUILTIN_TASKS = require("builtins.taskrunner.tasks").filetypes
-local PROJECT_TASKS = require("builtins.taskrunner.tasks").projects
+local TASKS = require("builtins.taskrunner.tasks")
+local BUILTIN_TASKS = TASKS.filetypes
+local PROJECT_TASKS = TASKS.projects
 
 local H = require("builtins.helpers")
 
@@ -15,6 +16,7 @@ M.load_tasks = function()
     local ok, result = pcall(require, "tasks")
     if not ok then
       H.notify("Error loading tasks.lua:\n" .. result, "error")
+      return BUILTIN_TASKS
     end
     tasks = result
   end
