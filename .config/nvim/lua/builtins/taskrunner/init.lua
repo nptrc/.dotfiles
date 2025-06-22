@@ -7,7 +7,6 @@ local H = require("builtins.helpers")
 local M = {}
 
 M.load_tasks = function()
-  local tasks = {}
   if H.file_exists("tasks.lua") then
     if package.loaded.tasks then
       package.loaded.tasks = nil
@@ -18,10 +17,11 @@ M.load_tasks = function()
       H.notify("Error loading tasks.lua:\n" .. result, "error")
       return BUILTIN_TASKS
     end
-    tasks = result
+
+    return result
   end
 
-  return vim.tbl_deep_extend("force", BUILTIN_TASKS, tasks)
+  return BUILTIN_TASKS
 end
 
 M.get_ft_tasks = function(tasks)
@@ -39,7 +39,7 @@ M.get_ft_tasks = function(tasks)
   ft = ft or ext
 
   local default_tasks = tasks["default"] or {}
-  local ft_tasks = tasks[ft] or {}
+  local ft_tasks = vim.tbl_extend("force", BUILTIN_TASKS[ft] or {}, tasks[ft] or {})
 
   local all_tasks = vim.tbl_deep_extend("force", default_tasks, ft_tasks)
 
@@ -93,7 +93,11 @@ M.run_task = function(task_name, tasks)
       H.notify("Prelaunch task " .. prelaunch_task .. " not found", "error")
       return
     end
+
     prelaunch_cmd = M.get_task_command(prelaunch_task, tasks[prelaunch_task])
+    if not prelaunch_cmd then
+      return
+    end
   end
 
   local cmd = M.get_task_command(task_name, task)

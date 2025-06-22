@@ -8,8 +8,7 @@ return {
     },
     c = {
       build = {
-        cmd = "mkdir -p build && gcc % -o ./build/%:t:r",
-        args = "-Wall -Werror -g",
+        cmd = "mkdir -p build && gcc % -o ./build/%:t:r -Wall -Werror -g",
       },
       run = {
         cmd = "./build/%:t:r",
@@ -18,8 +17,7 @@ return {
     },
     cpp = {
       build = {
-        cmd = "mkdir -p build && g++ % -o ./build/%:t:r",
-        args = "-Wall -Werror -g",
+        cmd = "mkdir -p build && g++ % -o ./build/%:t:r -Wall -Werror -g",
       },
       run = {
         cmd = "./build/%:t:r",
