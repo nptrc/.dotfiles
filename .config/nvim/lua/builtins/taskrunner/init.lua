@@ -18,7 +18,7 @@ M.load_tasks = function()
       return BUILTIN_TASKS
     end
 
-    return result
+    return vim.tbl_deep_extend("force", BUILTIN_TASKS, result)
   end
 
   return BUILTIN_TASKS
