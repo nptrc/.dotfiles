@@ -29,6 +29,11 @@ return {
         cmd = "python3 %",
       },
     },
+    shell = {
+      run = {
+        cmd = "bash %",
+      },
+    },
   },
 
   projects = {
