@@ -11,6 +11,7 @@ HISTCONTROL=ignoreboth
 
 shopt -s histappend
 
+export PS1="\e[0;32m\u@\h \e[0min \e[0;33m\w\n\e[0m-> "
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
 export FZF_DEFAULT_OPTS="
@@ -30,7 +31,6 @@ export MANPAGER="nvim +Man!"
 export BAT_THEME="Catppuccin Mocha"
 export MENUCONFIG_STYLE="monochrome"
 
-eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 
 . "$HOME/.cargo/env"
