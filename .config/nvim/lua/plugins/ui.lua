@@ -2,8 +2,6 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      image = {},
-
       lazygit = {
         win = {
           border = "none",
