@@ -11,7 +11,7 @@ HISTCONTROL=ignoreboth
 
 shopt -s histappend
 
-export PS1="\e[0;32m\u@\h \e[0min \e[0;33m\w\n\e[0m-> "
+export PS1="\e[0;32m\u@\h \e[0min \e[0;33m\w\e[0m\n$ "
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
 export FZF_DEFAULT_OPTS="
