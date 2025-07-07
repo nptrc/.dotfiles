@@ -23,3 +23,15 @@ ai.setup({
     U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
   },
 })
+
+require("mini.pick").setup({
+  mappings = {
+    toggle_info = "<tab>",
+    toggle_preview = "<c-p>",
+    move_down = "<c-j>",
+    move_up = "<c-k>",
+  },
+})
+vim.keymap.set("n", "<leader>ff", "<cmd>Pick files<cr>")
+vim.keymap.set("n", "<leader>sg", "<cmd>Pick grep_live<cr>")
+vim.keymap.set("n", "<leader>sh", "<cmd>Pick help<cr>")
