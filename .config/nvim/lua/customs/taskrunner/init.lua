@@ -1,8 +1,9 @@
-local TASKS = require("builtins.taskrunner.tasks")
+local TASKS = require("customs.taskrunner.tasks")
 local BUILTIN_TASKS = TASKS.filetypes
 local PROJECT_TASKS = TASKS.projects
 
-local H = require("builtins.helpers")
+local H = require("customs.helpers")
+local T = require("customs.term")
 
 local M = {}
 
@@ -123,10 +124,7 @@ M.run_task = function(task_name, tasks)
     cmd = string.format('echo -e "\\x1b[1;32m[RUN]: %s\\x1b[0m" && %s && %s', prelaunch_cmd, prelaunch_cmd, cmd)
   end
 
-  Snacks.terminal.toggle(cmd, {
-    cwd = vim.fn.getcwd(),
-    auto_close = false,
-  })
+  T.toggle(cmd)
 end
 
 M.select_and_run_task = function(ft_tasks)
@@ -147,7 +145,7 @@ M.select_and_run_task = function(ft_tasks)
   end)
 end
 
-vim.api.nvim_create_user_command("Task", function(opts)
+M.new = function(opts)
   local task_name = opts.args
 
   local tasks = M.load_tasks()
@@ -166,4 +164,6 @@ vim.api.nvim_create_user_command("Task", function(opts)
   end
 
   M.run_task(task_name, ft_tasks)
-end, { nargs = "?" })
+end
+
+return M

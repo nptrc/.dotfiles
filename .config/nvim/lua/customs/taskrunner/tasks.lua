@@ -29,7 +29,7 @@ return {
         cmd = "python3 %",
       },
     },
-    shell = {
+    sh = {
       run = {
         cmd = "bash %",
       },
