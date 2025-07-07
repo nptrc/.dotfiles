@@ -58,7 +58,7 @@ map("v", "<", "<gv", { desc = "Better indenting" })
 map("v", ">", ">gv", { desc = "Better indenting" })
 
 map("n", "<c-/>", function()
-  require("customs.term").toggle()
+  require("customs.terminal").toggle()
 end, { desc = "Toggle Terminal" })
 map("t", "<c-/>", "<cmd>close<cr>", { desc = "Close Terminal" })
 map("t", "<c-,>", "<c-\\><c-n>", { desc = "Exit Terminal Mode" })

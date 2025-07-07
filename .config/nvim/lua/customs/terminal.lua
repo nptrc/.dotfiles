@@ -44,7 +44,9 @@ M.open = function(cmd, opts)
         cwd = opts.cwd,
         env = opts.env,
         term = true,
+        on_stdout = opts.on_stdout,
         on_exit = opts.on_exit,
+        on_stderr = opts.on_stderr,
       })
     end)
 

@@ -3,7 +3,7 @@ local BUILTIN_TASKS = TASKS.filetypes
 local PROJECT_TASKS = TASKS.projects
 
 local H = require("customs.helpers")
-local T = require("customs.term")
+local T = require("customs.terminal")
 
 local M = {}
 
