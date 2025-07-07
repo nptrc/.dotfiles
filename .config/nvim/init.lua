@@ -10,6 +10,7 @@ vim.pack.add({
   { src = github("catppuccin/nvim"), name = "catppuccin" },
 
   { src = github("echasnovski/mini.nvim") },
+  { src = github("nvim-tree/nvim-tree.lua") },
 
   { src = github("nvim-treesitter/nvim-treesitter"), version = "main" },
 

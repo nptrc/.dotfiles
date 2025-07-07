@@ -1,5 +1,8 @@
 require("nvim-autopairs").setup({ fast_wrap = {} })
 
+require("nvim-tree").setup()
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>")
+
 require("blink.cmp").setup({
   completion = {
     accept = {
