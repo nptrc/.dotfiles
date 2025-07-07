@@ -129,6 +129,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
     map("n", "grn", vim.lsp.buf.rename, { desc = "Rename" })
     map({ "n", "v" }, "gca", vim.lsp.buf.code_action, { desc = "Code Action" })
+    map("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
     map("n", "grr", vim.lsp.buf.references, { desc = "References" })
     map("n", "grt", vim.lsp.buf.type_definition, { desc = "Type Definition" })
     map("n", "]d", function()
