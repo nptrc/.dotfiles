@@ -38,6 +38,7 @@ return {
 
   projects = {
     pio = {
+      priority = 20,
       root_markers = { "platformio.ini" },
       tasks = {
         build = { cmd = "pio run" },

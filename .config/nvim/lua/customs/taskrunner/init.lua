@@ -3,7 +3,6 @@ local BUILTIN_TASKS = TASKS.filetypes
 local PROJECT_TASKS = TASKS.projects
 
 local H = require("customs.helpers")
-local T = require("customs.terminal")
 
 local M = {}
 
@@ -124,7 +123,10 @@ M.run_task = function(task_name, tasks)
     cmd = string.format('echo -e "\\x1b[1;32m[RUN]: %s\\x1b[0m" && %s && %s', prelaunch_cmd, prelaunch_cmd, cmd)
   end
 
-  T.toggle(cmd)
+  Snacks.terminal(cmd, {
+    cwd = vim.fn.getcwd(),
+    auto_close = false,
+  })
 end
 
 M.select_and_run_task = function(ft_tasks)
