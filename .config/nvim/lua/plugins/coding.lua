@@ -8,6 +8,23 @@ return {
   },
 
   {
+    "echasnovski/mini.ai",
+    opts = function(_, opts)
+      local ai = require("mini.ai")
+      opts.custom_textobjects = {
+        o = ai.gen_spec.treesitter({
+          a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+          i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+        }, { use_nvim_treesitter = true }),
+        f = ai.gen_spec.treesitter({
+          a = "@function.outer",
+          i = "@function.inner",
+        }, { use_nvim_treesitter = true }),
+      }
+    end,
+  },
+
+  {
     "Saghen/blink.cmp",
     opts = {
       keymap = {
