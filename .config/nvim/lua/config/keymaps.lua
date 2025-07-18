@@ -5,6 +5,8 @@ map("t", "<c-,>", "<c-\\><c-n>", { desc = "Exit Terminal Mode" })
 
 map("n", "<c-c>", "<cmd>%y+<cr>", { desc = "Copy Whole File" })
 
-map("n", "<c-b>", "<cmd>Task run<cr>", { desc = "Task Run" })
-map("n", "<leader>cb", "<cmd>Task build<cr>", { desc = "Task Build" })
-map("n", "<leader>fs", "<cmd>Task<cr>", { desc = "Task Manager" })
+-- stylua: ignore start
+map("n", "<c-b>", function() require("customs.taskrunner").new("run") end, { desc = "Task Run" })
+map("n", "<leader>cb", function() require("customs.taskrunner").new("build") end, { desc = "Task Build" })
+map("n", "<leader>fs", function() require("customs.taskrunner").new() end, { desc = "Task Manager" })
+-- stylua: ignore end

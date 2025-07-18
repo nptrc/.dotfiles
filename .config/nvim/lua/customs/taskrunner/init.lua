@@ -147,9 +147,7 @@ M.select_and_run_task = function(ft_tasks)
   end)
 end
 
-M.new = function(opts)
-  local task_name = opts.args
-
+M.new = function(task_name)
   local tasks = M.load_tasks()
   if not tasks then
     return
