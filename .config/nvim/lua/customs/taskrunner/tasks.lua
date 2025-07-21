@@ -46,7 +46,7 @@ return {
         uploadfs = { cmd = "pio run -t uploadfs" },
         monitor = { cmd = "pio run -t monitor" },
         run = { cmd = "pio run -t upload -t monitor" },
-        compiledb = { cmd = "pio run -t compiledb" },
+        compiledb = { cmd = "pio project init --ide vim && pio run -t compiledb" },
         clean = { cmd = "pio run -t clean" },
         home = { cmd = "pio home --shutdown-timeout 1" },
       },
