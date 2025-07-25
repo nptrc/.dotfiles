@@ -123,7 +123,7 @@ M.run_task = function(task_name, tasks)
     cmd = string.format('echo -e "\\x1b[1;32m[RUN]: %s\\x1b[0m" && %s && %s', prelaunch_cmd, prelaunch_cmd, cmd)
   end
 
-  Snacks.terminal(cmd, {
+  require("snacks").terminal(cmd, {
     cwd = vim.fn.getcwd(),
     auto_close = false,
   })

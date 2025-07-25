@@ -1,0 +1,18 @@
+return {
+  ["blink.cmp"] = "bbdc39953ff2dc336129de162fae0833a816bf4b",
+  catppuccin = "e762a47478377612e59f01aa51db961f605c9aa4",
+  ["cmake-tools.nvim"] = "17244215b1a96e4b2a83a16abd6719197f270f96",
+  ["conform.nvim"] = "973f3cb73887d510321653044791d7937c7ec0fa",
+  ["friendly-snippets"] = "572f5660cf05f8cd8834e096d7b4c921ba18e175",
+  ["mason.nvim"] = "197f6352c276bbc2d25541dfce00ec50d1a4e88f",
+  ["mini.nvim"] = "c122e852517adaf7257688e435369c050da113b1",
+  ["nvim-dap"] = "5dd4d50f2e6a2eaf9e57fad023d294ef371bda35",
+  ["nvim-dap-python"] = "261ce649d05bc455a29f9636dc03f8cdaa7e0e2c",
+  ["nvim-dap-view"] = "c7385808c7d6a4438f6eef50d539d7103146ba2b",
+  ["nvim-dap-virtual-text"] = "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6",
+  ["nvim-lspconfig"] = "4d3b3bb8815fbe37bcaf3dbdb12a22382bc11ebe",
+  ["nvim-treesitter"] = "57aa15d4cc6f6459f7f8d864d16f970eb801faff",
+  ["nvim-treesitter-textobjects"] = "b54cec389e98c5b0babbe618773acec927437cab",
+  ["plenary.nvim"] = "857c5ac632080dba10aae49dba902ce3abf91b35",
+  ["snacks.nvim"] = "bc0630e43be5699bb94dadc302c0d21615421d93"
+}
