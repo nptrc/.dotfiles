@@ -43,7 +43,7 @@ later(function()
       win = {
         position = "float",
         border = "none",
-        height = 0,
+        height = 0.99,
         width = 0,
       },
     },
