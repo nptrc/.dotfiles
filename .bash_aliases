@@ -1,7 +1,7 @@
 alias cd="z"
 alias cat="bat"
 alias mkdir="mkdir -p"
-alias ls="eza -la --color=always"
+alias ls="eza -la --color=always --group-directories-first"
 alias grep="grep --color=always"
 
 alias vi="nvim"
