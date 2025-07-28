@@ -27,5 +27,4 @@ later(function()
   })
 
   require("mini.surround").setup()
-  require("mini.icons").setup()
 end)
