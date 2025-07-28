@@ -43,8 +43,8 @@ later(function()
       win = {
         position = "float",
         border = "none",
-        height = 0,
         width = 0,
+        height = 0.99,
       },
     },
 
@@ -57,15 +57,22 @@ later(function()
           hidden = true,
         },
       },
+      win = {
+        input = {
+          keys = {
+            ["<c-o>"] = { "confirm", mode = { "n", "i" } },
+          },
+        },
+      },
       layouts = {
         default = {
+          fullscreen = true,
           layout = {
             box = "horizontal",
             {
               box = "vertical",
               border = "none",
               title = "{title} {live} {flags}",
-              height = 0.99,
               { win = "input", height = 1, border = "bottom" },
               { win = "list" },
             },
@@ -77,7 +84,7 @@ later(function()
             width = 30,
             position = "left",
             box = "vertical",
-            { win = "list", border = "none" },
+            { win = "list" },
           },
         },
       },
