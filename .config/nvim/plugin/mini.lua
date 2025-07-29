@@ -13,11 +13,11 @@ later(function()
       o = ai.gen_spec.treesitter({ -- code block
         a = { "@block.outer", "@conditional.outer", "@loop.outer" },
         i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-      }, { use_nvim_treesitter = true }),
+      }),
       f = ai.gen_spec.treesitter({ -- function
         a = "@function.outer",
         i = "@function.inner",
-      }, { use_nvim_treesitter = true }),
+      }),
       c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
       t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
       d = { "%f[%d]%d+" }, -- digits

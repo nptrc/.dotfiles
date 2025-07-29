@@ -15,9 +15,11 @@ now_cond(function()
   })
 
   local ensure_installed = {
+    "lua",
     "bash",
     "json",
     "json5",
+    "c",
     "cpp",
     "ninja",
     "cmake",
