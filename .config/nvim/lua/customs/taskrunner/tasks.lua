@@ -57,7 +57,6 @@ return {
         build = { cmd = "!CMakeBuild" },
         run = { cmd = "!CMakeRun" },
         clean = { cmd = "!CMakeClean" },
-        debug = { cmd = "!CMakeDebug" },
       },
     },
     espidf = {
