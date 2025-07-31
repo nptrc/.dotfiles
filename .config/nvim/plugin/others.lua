@@ -48,7 +48,6 @@ later(function()
       ["<c-j>"] = { "select_next", "fallback" },
       ["<c-k>"] = { "select_prev", "fallback" },
     },
-    signature = { enabled = true },
     completion = {
       accept = {
         auto_brackets = { enabled = true },
