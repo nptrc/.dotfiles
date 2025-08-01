@@ -1,14 +1,14 @@
 return {
-  ["blink.cmp"] = "bbdc39953ff2dc336129de162fae0833a816bf4b",
-  catppuccin = "e762a47478377612e59f01aa51db961f605c9aa4",
+  ["blink.cmp"] = "bae4bae0eedd1fa55f34b685862e94a222d5c6f8",
+  catppuccin = "cb5665990a797b102715188e73c44c3931b3b42e",
   ["cmake-tools.nvim"] = "17244215b1a96e4b2a83a16abd6719197f270f96",
   ["conform.nvim"] = "973f3cb73887d510321653044791d7937c7ec0fa",
   ["friendly-snippets"] = "572f5660cf05f8cd8834e096d7b4c921ba18e175",
-  ["mason.nvim"] = "197f6352c276bbc2d25541dfce00ec50d1a4e88f",
+  ["mason.nvim"] = "3671ab0d40aa5bd24b1686562bd0a23391ecf76a",
   ["mini.nvim"] = "c122e852517adaf7257688e435369c050da113b1",
-  ["nvim-lspconfig"] = "4d3b3bb8815fbe37bcaf3dbdb12a22382bc11ebe",
-  ["nvim-treesitter"] = "57aa15d4cc6f6459f7f8d864d16f970eb801faff",
+  ["nvim-lspconfig"] = "3db16ceeea947517f0dc1404c24dcb5ab0c91d26",
+  ["nvim-treesitter"] = "b26b4258294c742c2613a7d98fe53014d1c8fe49",
   ["nvim-treesitter-textobjects"] = "b54cec389e98c5b0babbe618773acec927437cab",
-  ["plenary.nvim"] = "857c5ac632080dba10aae49dba902ce3abf91b35",
+  ["plenary.nvim"] = "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
   ["snacks.nvim"] = "bc0630e43be5699bb94dadc302c0d21615421d93"
 }
