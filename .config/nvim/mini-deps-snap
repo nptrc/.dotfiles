@@ -1,12 +1,13 @@
 return {
   ["blink.cmp"] = "bae4bae0eedd1fa55f34b685862e94a222d5c6f8",
-  catppuccin = "cb5665990a797b102715188e73c44c3931b3b42e",
+  catppuccin = "f67971cd3e30dd94061da8d61ee34742d43c632a",
   ["cmake-tools.nvim"] = "17244215b1a96e4b2a83a16abd6719197f270f96",
   ["conform.nvim"] = "973f3cb73887d510321653044791d7937c7ec0fa",
-  ["mason.nvim"] = "3671ab0d40aa5bd24b1686562bd0a23391ecf76a",
+  ["mason.nvim"] = "9e25c98d4826998460926f8c5c2284848d80ae89",
   ["mini.nvim"] = "c122e852517adaf7257688e435369c050da113b1",
-  ["nvim-lspconfig"] = "3db16ceeea947517f0dc1404c24dcb5ab0c91d26",
-  ["nvim-treesitter"] = "b26b4258294c742c2613a7d98fe53014d1c8fe49",
+  ["nvim-autopairs"] = "23320e75953ac82e559c610bec5a90d9c6dfa743",
+  ["nvim-lspconfig"] = "d0dbf489a8810672fa9a61f4a86e5cf89214b772",
+  ["nvim-treesitter"] = "3561e1fb19bcd9f03ba074d769a8a78d01717b19",
   ["nvim-treesitter-textobjects"] = "b54cec389e98c5b0babbe618773acec927437cab",
   ["plenary.nvim"] = "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
   ["snacks.nvim"] = "bc0630e43be5699bb94dadc302c0d21615421d93"
