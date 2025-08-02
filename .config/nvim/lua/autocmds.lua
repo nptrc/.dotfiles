@@ -40,13 +40,11 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "checkhealth",
     "help",
+    "man",
     "lspinfo",
     "qf",
     "tsplayground",
     "cmake_tools_terminal",
-    "dap-view",
-    "dap-view-term",
-    "dap-repl",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -60,13 +58,5 @@ vim.api.nvim_create_autocmd("FileType", {
         desc = "Quit buffer",
       })
     end)
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("unlisted_buffer"),
-  pattern = { "man", "cmake_tools_terminal" },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
   end,
 })

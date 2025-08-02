@@ -4,7 +4,6 @@ opt.number = true
 opt.relativenumber = true
 
 opt.tabstop = 4
-opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.shiftround = true
 opt.expandtab = true
@@ -42,9 +41,3 @@ opt.timeoutlen = 300
 opt.updatetime = 200
 
 opt.undofile = true
-opt.undolevels = 10000
-
-vim.cmd("cnoreabbrev W  w")
-vim.cmd("cnoreabbrev Wq wq")
-vim.cmd("cnoreabbrev Wqa wqa")
-vim.cmd("cnoreabbrev WQ wq")
