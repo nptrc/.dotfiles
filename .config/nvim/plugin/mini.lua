@@ -1,14 +1,6 @@
 later(function()
-  require("mini.pairs").setup({
-    skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-    skip_ts = { "string" },
-    skip_unbalanced = false,
-    markdown = true,
-  })
-
   local ai = require("mini.ai")
   require("mini.ai").setup({
-    n_lines = 500,
     custom_textobjects = {
       o = ai.gen_spec.treesitter({ -- code block
         a = { "@block.outer", "@conditional.outer", "@loop.outer" },

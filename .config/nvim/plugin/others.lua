@@ -1,6 +1,9 @@
 later(function()
   add("nvim-lua/plenary.nvim")
 
+  add("windwp/nvim-autopairs")
+  require("nvim-autopairs").setup()
+
   add("stevearc/conform.nvim")
   require("conform").setup({
     formatters_by_ft = {
