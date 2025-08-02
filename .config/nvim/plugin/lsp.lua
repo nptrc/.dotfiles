@@ -63,27 +63,29 @@ later(function()
   })
 
   vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function()
-      local map = vim.keymap.set
+    callback = function(e)
+      local map = function(mode, lhs, rhs)
+        vim.keymap.set(mode, lhs, rhs, { buffer = e.buf })
+      end
 
-      map("n", "cl", function()
-        require("snacks").picker.lsp_config()
-      end, { desc = "Lsp Info" })
-
-      map("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
-      map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
-      map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
-      map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
-      map("n", "gca", vim.lsp.buf.code_action, { desc = "Code Action" })
+      map("n", "gd", vim.lsp.buf.definition)
+      map("n", "gD", vim.lsp.buf.declaration)
+      map("n", "K", function()
+        vim.lsp.buf.hover({
+          close_events = {
+            "CursorMoved",
+            "WinEnter",
+            "ModeChanged",
+          },
+        })
+      end)
       map("n", "]d", function()
         vim.diagnostic.jump({ count = 1, float = true })
-      end, { desc = "Next Diagnostic" })
+      end)
       map("n", "[d", function()
         vim.diagnostic.jump({ count = -1, float = true })
-      end, { desc = "Prev Diagnostic" })
-      map("n", "<leader>xx", function()
-        vim.diagnostic.setqflist()
-      end, { desc = "QuickFix Diagnostic" })
+      end)
+      map("n", "<leader>xx", vim.diagnostic.setqflist)
     end,
   })
 end)
