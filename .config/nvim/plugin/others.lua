@@ -21,12 +21,7 @@ later(function()
     end,
   })
 
-  add({
-    source = "saghen/blink.cmp",
-    depends = { "rafamadriz/friendly-snippets" },
-    checkout = "v1.6.0",
-  })
-
+  add({ source = "saghen/blink.cmp", checkout = "v1.6.0" })
   require("blink.cmp").setup({
     keymap = {
       preset = "enter",
