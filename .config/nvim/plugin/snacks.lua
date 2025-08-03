@@ -36,9 +36,6 @@ later(function()
   -- stylua: ignore end
 
   snacks.setup({
-    bigfile = {},
-    image = {},
-
     terminal = {
       win = {
         position = "float",
