@@ -1,6 +1,4 @@
 later(function()
-  add("nvim-lua/plenary.nvim")
-
   add("windwp/nvim-autopairs")
   require("nvim-autopairs").setup()
 
@@ -42,11 +40,5 @@ later(function()
       },
     },
     cmdline = { enabled = false },
-  })
-
-  add("Civitasv/cmake-tools.nvim")
-  require("cmake-tools").setup({
-    cmake_build_directory = "build",
-    cmake_generate_options = { "-GNinja", "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
   })
 end)
