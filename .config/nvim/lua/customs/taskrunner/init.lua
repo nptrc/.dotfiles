@@ -28,12 +28,10 @@ M.get_ft_tasks = function(tasks)
   local ext = vim.fn.expand("%:e")
   local ft = vim.bo.filetype
 
-  if not tasks[ft] then
-    for lang, extension in pairs(tasks["ft_mappings"] or {}) do
-      if vim.tbl_contains(extension, ext) then
-        ft = lang
-        break
-      end
+  for lang, extension in pairs(tasks["ft_mappings"] or {}) do
+    if vim.tbl_contains(extension, ext) then
+      ft = lang
+      break
     end
   end
   ft = ft or ext
@@ -62,7 +60,7 @@ M.get_ft_tasks = function(tasks)
   end
 
   if vim.tbl_isempty(all_tasks) then
-    H.notify("No tasks found for " .. ft, "info")
+    H.notify("No tasks found for `" .. ft .. "`", "info")
     return nil
   end
 
@@ -74,7 +72,7 @@ M.get_task_command = function(task_name, task)
   local args = task["args"] or ""
 
   if not cmd then
-    H.notify("No command found for task " .. task_name, "error")
+    H.notify("No command found for task `" .. task_name .. "`", "error")
     return nil
   end
 
@@ -91,18 +89,26 @@ M.get_task_command = function(task_name, task)
 end
 
 M.run_task = function(task_name, tasks)
-  local task = tasks[task_name]
+  local task = vim.deepcopy(tasks[task_name])
 
   local prelaunch_task = task["prelaunch"]
   local prelaunch_cmd = nil
   if prelaunch_task then
     if not tasks[prelaunch_task] then
-      H.notify("Prelaunch task " .. prelaunch_task .. " not found", "error")
+      H.notify("Prelaunch task `" .. prelaunch_task .. "` not found", "error")
       return
     end
 
     prelaunch_cmd = M.get_task_command(prelaunch_task, tasks[prelaunch_task])
     if not prelaunch_cmd then
+      return
+    end
+  end
+
+  if task["prehook"] then
+    local ok = pcall(task.prehook, task)
+    if not ok then
+      H.notify("Pre-run hook failed. Exited!")
       return
     end
   end
@@ -149,10 +155,6 @@ end
 
 M.new = function(task_name)
   local tasks = M.load_tasks()
-  if not tasks then
-    return
-  end
-
   local ft_tasks = M.get_ft_tasks(tasks)
   if not ft_tasks then
     return

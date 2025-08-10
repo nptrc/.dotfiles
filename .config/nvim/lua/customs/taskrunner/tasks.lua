@@ -2,8 +2,7 @@ return {
   filetypes = {
     ft_mappings = {
       c = { "h" },
-      asm = { "nasm" },
-      rust = { "cargo" },
+      cpp = { "hpp" },
       shell = { "sh", "bash" },
     },
     c = {
@@ -37,26 +36,28 @@ return {
   },
 
   projects = {
-    pio = {
-      priority = 20,
-      root_markers = { "platformio.ini" },
-      tasks = {
-        build = { cmd = "pio run" },
-        upload = { cmd = "pio run -t upload" },
-        uploadfs = { cmd = "pio run -t uploadfs" },
-        monitor = { cmd = "pio run -t monitor" },
-        run = { cmd = "pio run -t upload -t monitor" },
-        compiledb = { cmd = "pio project init --ide vim && pio run -t compiledb" },
-        clean = { cmd = "pio run -t clean" },
-        home = { cmd = "pio home --shutdown-timeout 1" },
-      },
-    },
     cmake = {
       root_markers = { "CMakeLists.txt" },
       tasks = {
-        build = { cmd = "!CMakeBuild" },
-        run = { cmd = "!CMakeRun" },
-        clean = { cmd = "!CMakeClean" },
+        build = { cmd = "cmake --build build" },
+        run = {
+          cmd = "./build/",
+          prelaunch = "build",
+          prehook = function(self)
+            vim.ui.input({
+              prompt = "Target: ",
+              default = _G.cmake_target or "",
+            }, function(input)
+              _G.cmake_target = input
+              self.cmd = self.cmd .. input
+            end)
+          end,
+        },
+        generate = {
+          cmd = "cmake -Bbuild -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 &&"
+            .. " ln -sf ./build/compile_commands.json .",
+        },
+        clean = { cmd = "rm -rf build compile_commands.json" },
       },
     },
     espidf = {
@@ -71,6 +72,20 @@ return {
         menuconfig = { cmd = "idf.py menuconfig" },
         clean = { cmd = "idf.py fullclean" },
         reconfigure = { cmd = "idf.py reconfigure" },
+      },
+    },
+    pio = {
+      priority = 20,
+      root_markers = { "platformio.ini" },
+      tasks = {
+        build = { cmd = "pio run" },
+        upload = { cmd = "pio run -t upload" },
+        uploadfs = { cmd = "pio run -t uploadfs" },
+        monitor = { cmd = "pio run -t monitor" },
+        run = { cmd = "pio run -t upload -t monitor" },
+        compiledb = { cmd = "pio project init --ide vim && pio run -t compiledb" },
+        clean = { cmd = "pio run -t clean" },
+        home = { cmd = "pio home --shutdown-timeout 1" },
       },
     },
   },
