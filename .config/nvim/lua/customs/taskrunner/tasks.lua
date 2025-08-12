@@ -1,4 +1,4 @@
-return {
+local default_tasks = {
   filetypes = {
     ft_mappings = {
       c = { "h" },
@@ -65,10 +65,10 @@ return {
       root_markers = { "sdkconfig.*" },
       tasks = {
         build = { cmd = "idf.py build" },
-        flash = { cmd = "idf.py -p /dev/ttyUSB0 flash" },
-        monitor = { cmd = "idf.py -p /dev/ttyUSB0 monitor" },
-        run = { cmd = "idf.py -p /dev/ttyUSB0 flash monitor" },
-        erase = { cmd = "idf.py -p /dev/ttyUSB0 erase-flash" },
+        flash = { cmd = "idf.py -p /dev/tty<PORT> flash" },
+        monitor = { cmd = "idf.py -p /dev/tty<PORT> monitor" },
+        run = { cmd = "idf.py -p /dev/tty<PORT> flash monitor" },
+        erase = { cmd = "idf.py -p /dev/tty<PORT> erase-flash" },
         menuconfig = { cmd = "idf.py menuconfig" },
         clean = { cmd = "idf.py fullclean" },
         reconfigure = { cmd = "idf.py reconfigure" },
@@ -90,3 +90,19 @@ return {
     },
   },
 }
+
+for _, task_info in pairs(default_tasks.projects.espidf.tasks) do
+  if string.find(task_info.cmd, "tty<PORT>") then
+    task_info.prehook = function(self)
+      vim.ui.input({
+        prompt = "Port: ",
+        default = _G.espidf_port or "USB0",
+      }, function(input)
+        _G.espidf_port = input
+        self.cmd = string.gsub(self.cmd, "tty<PORT>", "tty" .. input)
+      end)
+    end
+  end
+end
+
+return default_tasks
