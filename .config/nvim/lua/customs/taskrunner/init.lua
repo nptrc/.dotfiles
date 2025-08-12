@@ -6,6 +6,8 @@ local H = require("customs.helpers")
 
 local M = {}
 
+M.last_task = ""
+
 M.load_tasks = function()
   if H.file_exists("tasks.lua") then
     if package.loaded.tasks then
@@ -133,6 +135,8 @@ M.run_task = function(task_name, tasks)
     cwd = vim.fn.getcwd(),
     auto_close = false,
   })
+
+  M.last_task = task_name
 end
 
 M.select_and_run_task = function(ft_tasks)
@@ -166,6 +170,14 @@ M.new = function(task_name)
   end
 
   M.run_task(task_name, ft_tasks)
+end
+
+M.run_last = function()
+  if M.last_task == "" then
+    H.notify("You haven't run any tasks before")
+    return
+  end
+  M.new(M.last_task)
 end
 
 return M
