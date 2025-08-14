@@ -15,9 +15,6 @@ later(function()
   -- stylua: ignore start
   map("t", "<c-/>", "<cmd>close<cr>", { desc = "Toggle Terminal" })
   map("n", "<c-/>", function() snacks.terminal() end, { desc = "Toggle Terminal" })
-  snacks.toggle.option("spell"):map("<leader>us")
-  snacks.toggle.option("wrap"):map("<leader>uw")
-  snacks.toggle.diagnostics():map("<leader>ud")
 
   map("n", "<leader>n", function() snacks.picker.notifications() end, { desc = "Notification History"  })
 

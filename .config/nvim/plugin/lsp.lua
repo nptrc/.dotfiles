@@ -4,20 +4,6 @@ later(function()
 
   add("neovim/nvim-lspconfig")
 
-  vim.lsp.config("lua_ls", {
-    settings = {
-      Lua = {
-        callSnippet = "Replace",
-        hint = {
-          enable = true,
-          paramName = "Disable",
-          semicolon = "Disable",
-          arrayIndex = "Disable",
-        },
-      },
-    },
-  })
-
   vim.lsp.config("clangd", {
     cmd = {
       "clangd",
