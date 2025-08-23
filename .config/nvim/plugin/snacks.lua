@@ -40,7 +40,7 @@ snacks.setup({
   lazygit = {
     win = {
       position = "float",
-      height = 0,
+      height = 0.99,
       width = 0,
     },
   },

@@ -20,8 +20,8 @@ map("n", "<a-j>", "<cmd>resize -2<cr>")
 map("n", "<a-h>", "<cmd>vertical resize -2<cr>")
 map("n", "<a-l>", "<cmd>vertical resize +2<cr>")
 
-map("n", "<S-l>", "<cmd>bn<cr>")
-map("n", "<S-h>", "<cmd>bp<cr>")
+map("n", "<s-l>", "<cmd>bn<cr>")
+map("n", "<s-h>", "<cmd>bp<cr>")
 
 map("n", "<leader>ur", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>")
 

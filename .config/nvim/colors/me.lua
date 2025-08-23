@@ -44,6 +44,9 @@ local hl = {
   ["@punctuation.bracket.c"] = { fg = c.base15 },
 
   ["@module.python"] = { fg = c.base15 },
+
+  ["SnacksPickerDir"] = { fg = c.fg },
+  ["SnacksPickerPathHidden"] = { fg = c.base7 },
 }
 
 for group, opts in pairs(hl) do
