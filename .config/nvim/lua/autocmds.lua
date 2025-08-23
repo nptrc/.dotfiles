@@ -44,7 +44,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "lspinfo",
     "qf",
     "tsplayground",
-    "cmake_tools_terminal",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -58,5 +57,23 @@ vim.api.nvim_create_autocmd("FileType", {
         desc = "Quit buffer",
       })
     end)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("wrap_spell"),
+  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("tab_two"),
+  pattern = { "lua", "json" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
   end,
 })

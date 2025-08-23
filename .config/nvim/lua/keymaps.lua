@@ -4,7 +4,7 @@ map("i", "jk", "<esc>")
 map("t", "<c-,>", "<c-\\><c-n>")
 
 map("n", "<c-c>", "<cmd>%y+<cr>")
-map({ "n" }, "<c-s>", "<cmd>w ++p<cr><esc>")
+map("n", "<c-s>", "<cmd>w ++p<cr><esc>")
 map("n", "<leader>qq", "<cmd>qa<cr>")
 
 map("n", "j", "gj")

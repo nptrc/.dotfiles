@@ -15,20 +15,15 @@ export PS1="\e[0;32m\u@\h \e[0min \e[0;33m\w\e[0m\n$ "
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
 export FZF_DEFAULT_OPTS="
-    --bind 'ctrl-d:preview-up' \
-    --bind 'ctrl-f:preview-down' \
+    --bind 'ctrl-u:preview-up' \
+    --bind 'ctrl-d:preview-down' \
     --ansi \
     --multi \
     --reverse \
     --no-scrollbar \
     --tabstop=2 \
-    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-    --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-    --color=selected-bg:#45475a \
 "
 export MANPAGER="nvim +Man!"
-export MENUCONFIG_STYLE="monochrome"
 
 eval "$(zoxide init bash)"
 

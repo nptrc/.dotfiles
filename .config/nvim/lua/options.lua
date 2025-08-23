@@ -27,9 +27,7 @@ opt.showmode = false
 opt.cursorline = true
 opt.termguicolors = true
 opt.signcolumn = "yes"
-opt.guicursor = "n-v-c-sm-i-ci-ve-r-cr-o:block"
-opt.shortmess:append({ I = true, c = true })
-opt.iskeyword:append("-")
+opt.guicursor = "i:block"
 
 opt.autowrite = true
 opt.confirm = true
@@ -41,3 +39,4 @@ opt.timeoutlen = 300
 opt.updatetime = 200
 
 opt.undofile = true
+opt.swapfile = false

@@ -1,6 +1,6 @@
 alias cd="z"
 alias mkdir="mkdir -p"
-alias ls="eza -la --color=always --group-directories-first"
+alias ls="ls -la --color=always --group-directories-first"
 alias grep="grep --color=always"
 
 alias vi="nvim"

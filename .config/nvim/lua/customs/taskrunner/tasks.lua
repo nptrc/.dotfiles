@@ -7,7 +7,7 @@ local default_tasks = {
     },
     c = {
       build = {
-        cmd = "mkdir -p build && gcc % -o ./build/%:t:r -Wall -Werror -g",
+        cmd = "mkdir -p build && gcc % -o ./build/%:t:r -g",
       },
       run = {
         cmd = "./build/%:t:r",
@@ -16,7 +16,7 @@ local default_tasks = {
     },
     cpp = {
       build = {
-        cmd = "mkdir -p build && g++ % -o ./build/%:t:r -Wall -Werror -g",
+        cmd = "mkdir -p build && g++ % -o ./build/%:t:r -g",
       },
       run = {
         cmd = "./build/%:t:r",
