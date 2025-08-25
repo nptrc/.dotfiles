@@ -29,3 +29,11 @@ vim.api.nvim_create_autocmd("PackChanged", {
     vim.cmd("TSUpdate")
   end,
 })
+
+_G.now = function(cb)
+  cb()
+end
+_G.later = function(cb)
+  vim.schedule(cb)
+end
+_G.now_cond = vim.fn.argc(-1) > 0 and now or later

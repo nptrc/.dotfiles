@@ -1,6 +1,7 @@
-local snacks = require("snacks")
+later(function()
+  local snacks = require("snacks")
 
-local map = vim.keymap.set
+  local map = vim.keymap.set
 
 -- stylua: ignore start
 map("n", "<leader>bd", snacks.bufdelete.delete)
@@ -23,66 +24,67 @@ map("n", "<leader>sH", function() snacks.picker.highlights() end)
 map("n", "<leader>sk", function() snacks.picker.keymaps() end)
 map("n", "<leader>sm", function() snacks.picker.man() end)
 map("n", "<leader>su", function() snacks.picker.undo() end)
--- stylua: ignore end
+  -- stylua: ignore end
 
-snacks.setup({
-  terminal = {
-    win = {
-      position = "bottom",
-      border = "none",
-      height = 0.5,
-      wo = {
-        winbar = "",
-      },
-    },
-  },
-
-  lazygit = {
-    win = {
-      position = "float",
-      height = 0.99,
-      width = 0,
-    },
-  },
-
-  picker = {
-    sources = {
-      files = {
-        hidden = true,
-      },
-      explorer = {
-        hidden = true,
-      },
-    },
-    win = {
-      input = {
-        keys = {
-          ["<c-o>"] = { "confirm", mode = { "n", "i" } },
+  snacks.setup({
+    terminal = {
+      win = {
+        position = "bottom",
+        border = "none",
+        height = 0.5,
+        wo = {
+          winbar = "",
         },
       },
     },
-    layouts = {
-      default = {
-        layout = {
-          position = "bottom",
-          box = "horizontal",
-          height = 0.5,
-          {
+
+    lazygit = {
+      win = {
+        position = "float",
+        height = 0.99,
+        width = 0,
+      },
+    },
+
+    picker = {
+      sources = {
+        files = {
+          hidden = true,
+        },
+        explorer = {
+          hidden = true,
+        },
+      },
+      win = {
+        input = {
+          keys = {
+            ["<c-o>"] = { "confirm", mode = { "n", "i" } },
+          },
+        },
+      },
+      layouts = {
+        default = {
+          layout = {
+            position = "bottom",
+            box = "horizontal",
+            height = 0.5,
+            {
+              box = "vertical",
+              { win = "input", height = 1 },
+              { win = "list" },
+            },
+            { win = "preview", title = "{preview}", border = "left", width = 0.6 },
+          },
+        },
+        sidebar = {
+          layout = {
+            width = 30,
+            position = "left",
             box = "vertical",
-            { win = "input", height = 1 },
             { win = "list" },
           },
-          { win = "preview", title = "{preview}", border = "left", width = 0.6 },
-        },
-      },
-      sidebar = {
-        layout = {
-          width = 30,
-          position = "left",
-          box = "vertical",
-          { win = "list" },
         },
       },
     },
-  },
-})
+  })
+end)
