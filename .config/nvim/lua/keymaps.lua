@@ -14,6 +14,7 @@ map("n", "<c-h>", "<c-w>h")
 map("n", "<c-j>", "<c-w>j")
 map("n", "<c-k>", "<c-w>k")
 map("n", "<c-l>", "<c-w>l")
+map("t", "<c-k>", "<c-\\><c-n><c-w>k")
 
 map("n", "<a-k>", "<cmd>resize +2<cr>")
 map("n", "<a-j>", "<cmd>resize -2<cr>")
