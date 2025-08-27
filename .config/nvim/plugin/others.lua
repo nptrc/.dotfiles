@@ -8,8 +8,8 @@ later(function()
       cpp = { "clang-format" },
       cmake = { "cmake_format" },
       python = { "ruff_format" },
-      json = { "prettierd" },
-      markdown = { "prettierd" },
+      json = { "prettier" },
+      markdown = { "prettier" },
     },
   })
 
