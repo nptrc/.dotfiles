@@ -3,27 +3,27 @@ later(function()
 
   local map = vim.keymap.set
 
--- stylua: ignore start
-map("n", "<leader>bd", snacks.bufdelete.delete)
-map("n", "<leader>bo", snacks.bufdelete.other)
-map("n", "<leader>bD", snacks.bufdelete.all)
+  -- stylua: ignore start
+  map("n", "<leader>bd", snacks.bufdelete.delete)
+  map("n", "<leader>bo", snacks.bufdelete.other)
+  map("n", "<leader>bD", snacks.bufdelete.all)
 
-map("n", "<leader>e", snacks.explorer.open)
-map("n", "<leader>gg", snacks.lazygit.open)
+  map("n", "<leader>e", snacks.explorer.open)
+  map("n", "<leader>gg", snacks.lazygit.open)
 
-map("t", "<c-/>", "<cmd>close<cr>")
-map("n", "<c-/>", function() snacks.terminal() end)
+  map("t", "<c-/>", "<cmd>close<cr>")
+  map("n", "<c-/>", function() snacks.terminal() end)
 
-map("n", "<leader>ff", function() snacks.picker.files() end)
-map("n", "<leader>fc", function() snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end)
+  map("n", "<leader>ff", function() snacks.picker.files() end)
+  map("n", "<leader>fc", function() snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end)
 
-map("n", "<leader>sb", function() snacks.picker.lines() end)
-map("n", "<leader>sg", function() snacks.picker.grep() end)
-map("n", "<leader>sh", function() snacks.picker.help() end)
-map("n", "<leader>sH", function() snacks.picker.highlights() end)
-map("n", "<leader>sk", function() snacks.picker.keymaps() end)
-map("n", "<leader>sm", function() snacks.picker.man() end)
-map("n", "<leader>su", function() snacks.picker.undo() end)
+  map("n", "<leader>sb", function() snacks.picker.lines() end)
+  map("n", "<leader>sg", function() snacks.picker.grep() end)
+  map("n", "<leader>sh", function() snacks.picker.help() end)
+  map("n", "<leader>sH", function() snacks.picker.highlights() end)
+  map("n", "<leader>sk", function() snacks.picker.keymaps() end)
+  map("n", "<leader>sm", function() snacks.picker.man() end)
+  map("n", "<leader>su", function() snacks.picker.undo() end)
   -- stylua: ignore end
 
   snacks.setup({
