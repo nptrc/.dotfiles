@@ -39,8 +39,6 @@ local hl = {
 
   ["@string.escape.c"] = { link = "Constant" },
   ["@lsp.type.macro.c"] = { link = "Special" },
-  ["@keyword.repeat.c"] = { fg = c.base15 },
-  ["@keyword.conditional.c"] = { fg = c.base15 },
   ["@punctuation.bracket.c"] = { fg = c.base15 },
 
   ["@module.python"] = { fg = c.base15 },
