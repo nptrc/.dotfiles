@@ -12,10 +12,8 @@ local gh = function(spec)
 end
 
 vim.pack.add({
-  gh("mason-org/mason.nvim"),
   gh("neovim/nvim-lspconfig"),
-  gh("echasnovski/mini.ai"),
-  gh("echasnovski/mini.surround"),
+  gh("nvim-mini/mini.nvim"),
   gh("windwp/nvim-autopairs"),
   gh("stevearc/conform.nvim"),
   gh("folke/snacks.nvim"),

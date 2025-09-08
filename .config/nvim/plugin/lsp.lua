@@ -1,6 +1,4 @@
 later(function()
-  require("mason").setup()
-
   vim.lsp.config("clangd", {
     cmd = {
       "clangd",
