@@ -67,13 +67,13 @@ later(function()
           layout = {
             position = "bottom",
             box = "horizontal",
-            height = 0.5,
+            height = 0.8,
             {
               box = "vertical",
               { win = "input", height = 1 },
               { win = "list" },
             },
-            { win = "preview", title = "{preview}", border = "left", width = 0.6 },
+            { win = "preview", border = "left", width = 0.6 },
           },
         },
         sidebar = {
