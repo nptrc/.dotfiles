@@ -10,6 +10,9 @@ HISTFILESIZE=-1
 HISTCONTROL=ignoreboth
 
 shopt -s histappend
+shopt -s autocd
+
+stty -ixon
 
 export PS1="\e[0;32m\u@\h \e[0min \e[0;33m\w\e[0m\n$ "
 export EDITOR="nvim"
