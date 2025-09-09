@@ -2,6 +2,7 @@ later(function()
   require("nvim-autopairs").setup()
 
   require("conform").setup({
+    format_on_save = { lsp_format = "fallback", timeout_ms = 500 },
     formatters_by_ft = {
       lua = { "stylua" },
       c = { "clang-format" },
@@ -11,13 +12,6 @@ later(function()
       json = { "prettier" },
       markdown = { "prettier" },
     },
-  })
-
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    callback = function(e)
-      require("conform").format({ bufnr = e.buf })
-    end,
   })
 
   require("blink.cmp").setup({
