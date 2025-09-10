@@ -27,6 +27,7 @@ export FZF_DEFAULT_OPTS="
     --tabstop=2 \
 "
 export MANPAGER="nvim +Man!"
+export MENUCONFIG_STYLE="monochrome"
 
 eval "$(zoxide init bash)"
 
