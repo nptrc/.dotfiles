@@ -64,7 +64,7 @@ local default_tasks = {
       priority = 10,
       root_markers = { "sdkconfig.*" },
       tasks = {
-        build = { cmd = "idf.py build" },
+        build = { cmd = "idf.py build && ln -sf ./build/compile_commands.json ." },
         flash = { cmd = "idf.py -p /dev/tty<PORT> flash" },
         monitor = { cmd = "idf.py -p /dev/tty<PORT> monitor" },
         run = { cmd = "idf.py -p /dev/tty<PORT> flash monitor" },
