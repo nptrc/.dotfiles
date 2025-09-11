@@ -31,7 +31,7 @@ later(function()
       win = {
         position = "bottom",
         border = "none",
-        height = 0.5,
+        height = 0.8,
         wo = {
           winbar = "",
         },
