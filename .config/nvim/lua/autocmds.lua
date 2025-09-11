@@ -77,3 +77,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.shiftwidth = 2
   end,
 })
+
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+  group = augroup("cmdline_autocomplete"),
+  callback = function()
+    vim.opt.wildmode = "noselect:lastused,full"
+    vim.fn.wildtrigger()
+  end,
+})
