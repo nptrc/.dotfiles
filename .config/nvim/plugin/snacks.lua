@@ -31,7 +31,7 @@ later(function()
       win = {
         position = "bottom",
         border = "none",
-        height = 0.8,
+        height = 0.6,
         wo = {
           winbar = "",
         },
@@ -63,19 +63,6 @@ later(function()
         },
       },
       layouts = {
-        default = {
-          layout = {
-            position = "bottom",
-            box = "horizontal",
-            height = 0.8,
-            {
-              box = "vertical",
-              { win = "input", height = 1 },
-              { win = "list" },
-            },
-            { win = "preview", border = "left", width = 0.6 },
-          },
-        },
         sidebar = {
           layout = {
             width = 30,
