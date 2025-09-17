@@ -53,6 +53,7 @@ later(function()
         },
         explorer = {
           hidden = true,
+          follow_file = false,
         },
       },
       win = {

@@ -23,6 +23,7 @@ local hl = {
   ["Normal"] = { bg = c.bg, fg = c.fg },
   ["NormalFloat"] = { bg = c.bg, fg = c.fg },
   ["StatusLine"] = {},
+  ["Directory"] = { fg = c.base4 },
 
   ["Constant"] = { fg = c.base10 },
   ["String"] = { link = "Constant" },
