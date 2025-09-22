@@ -30,6 +30,11 @@ later(function()
         selection = { preselect = false },
       },
     },
-    cmdline = { enabled = false },
+    cmdline = {
+      completion = {
+        menu = { auto_show = true },
+        list = { selection = { preselect = false } },
+      },
+    },
   })
 end)
