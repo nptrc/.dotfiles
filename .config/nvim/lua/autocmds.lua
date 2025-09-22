@@ -40,7 +40,6 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "checkhealth",
     "help",
-    "man",
     "lspinfo",
     "qf",
     "tsplayground",
@@ -75,13 +74,5 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.tabstop = 2
     vim.opt_local.shiftwidth = 2
-  end,
-})
-
-vim.api.nvim_create_autocmd("CmdlineChanged", {
-  group = augroup("cmdline_autocomplete"),
-  callback = function()
-    vim.opt.wildmode = "noselect:lastused,full"
-    vim.fn.wildtrigger()
   end,
 })
