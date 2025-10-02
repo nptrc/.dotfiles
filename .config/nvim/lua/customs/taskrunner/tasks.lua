@@ -39,24 +39,9 @@ local default_tasks = {
     cmake = {
       root_markers = { "CMakeLists.txt" },
       tasks = {
-        build = { cmd = "cmake --build build" },
-        run = {
-          cmd = "./build/",
-          prelaunch = "build",
-          prehook = function(self)
-            vim.ui.input({
-              prompt = "Target: ",
-              default = _G.cmake_target or "",
-            }, function(input)
-              _G.cmake_target = input
-              self.cmd = self.cmd .. input
-            end)
-          end,
-        },
-        generate = {
-          cmd = "cmake -Bbuild -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 &&"
-            .. " ln -sf ./build/compile_commands.json .",
-        },
+        build = { cmd = "!CMakeBuild" },
+        run = { cmd = "!CMakeRun" },
+        generate = { cmd = "!CMakeGenerate" },
         clean = { cmd = "rm -rf build compile_commands.json" },
       },
     },
