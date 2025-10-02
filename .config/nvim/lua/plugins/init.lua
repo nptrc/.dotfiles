@@ -47,6 +47,7 @@ return {
             },
           },
         },
+        ruff = { enabled = false },
       },
     },
   },
