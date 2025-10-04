@@ -1,6 +1,7 @@
 local map = vim.keymap.set
 
 map("i", "jk", "<esc>")
+map("t", "<c-,>", "<c-\\><c-n>")
 
 map("n", "<c-c>", "<cmd>%y+<cr>")
 
