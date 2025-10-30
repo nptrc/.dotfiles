@@ -2,8 +2,6 @@
     email = khoa05032006@gmail.com
     name = nptrc
 
-[core]
-    pager = delta
 
 [init]
     defaultBranch = main
@@ -13,16 +11,3 @@
 
 [credential "helperselector"]
     selected = manager
-
-[interactive]
-    diffFilter = delta --color-only
-
-[delta]
-    navigate = true
-    dark = true
-    side-by-side = true
-    line-numbers-left-format = "{nm}│"
-    line-numbers-right-format = "│{nm}│"
-
-[merge]
-    conflictstyle = zdiff3
