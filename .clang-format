@@ -1,6 +1,7 @@
 ---
 BasedOnStyle: Microsoft
 AlignArrayOfStructures: Right
+ColumnLimit: 100
 BraceWrapping:
   AfterClass: False
   AfterControlStatement: Never

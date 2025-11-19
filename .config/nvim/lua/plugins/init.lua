@@ -1,19 +1,16 @@
 return {
-  { "folke/ts-comments.nvim", enabled = false },
-  { "folke/tokyonight.nvim", enabled = false },
-  { "mfussenegger/nvim-lint", enabled = false },
+  { "catppuccin/nvim", enabled = false },
 
   {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
+    "NeogitOrg/neogit",
+    cmd = "Neogit",
+    keys = { { "<leader>gg", "<cmd>Neogit<cr>" } },
   },
 
   {
-    "nvim-mini/mini.pairs",
+    "folke/noice.nvim",
     opts = {
-      modes = { command = false },
+      lsp = { signature = { enabled = false } },
     },
   },
 
@@ -30,23 +27,11 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      diagnostics = {
-        underline = false,
-        virtual_text = false,
-      },
-      inlay_hints = {
-        enabled = false,
-      },
+      diagnostics = { underline = false },
+      inlay_hints = { enabled = false },
       servers = {
         clangd = { enabled = vim.fn.filereadable(vim.uv.cwd() .. "/.ccls") == 0 },
-        ccls = {
-          enabled = vim.fn.filereadable(vim.uv.cwd() .. "/.ccls") == 1,
-          init_options = {
-            diagnostics = {
-              onChange = 100,
-            },
-          },
-        },
+        ccls = { enabled = vim.fn.filereadable(vim.uv.cwd() .. "/.ccls") == 1 },
         ruff = { enabled = false },
       },
     },
@@ -76,8 +61,9 @@ return {
       },
       completion = {
         documentation = { auto_show = false },
-        ghost_text = { enabled = false },
+        list = { selection = { preselect = false } },
       },
+      signature = { enabled = true },
     },
   },
 
@@ -90,49 +76,16 @@ return {
     },
     opts = {
       indent = { enabled = false },
-
-      dashboard = {
-        preset = {
-          -- stylua: ignore
-          keys = {
-            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-          },
-        },
-      },
+      dashboard = { enabled = false },
 
       terminal = {
         win = {
           border = "single",
-          wo = {
-            winbar = "",
-          },
-        },
-      },
-
-      lazygit = {
-        win = {
-          border = "none",
-          position = "float",
-          height = 0.99,
-          width = 0,
+          wo = { winbar = "" },
         },
       },
 
       picker = {
-        sources = {
-          files = {
-            hidden = true,
-          },
-          explorer = {
-            hidden = true,
-          },
-        },
         win = {
           input = {
             keys = {
@@ -140,7 +93,32 @@ return {
             },
           },
         },
+        sources = {
+          files = {
+            hidden = true,
+          },
+          grep = {
+            hidden = true,
+          },
+          explorer = {
+            hidden = true,
+          },
+        },
         layouts = {
+          default = {
+            layout = {
+              box = "horizontal",
+              height = 0,
+              {
+                box = "vertical",
+                border = "top",
+                title = "{title} {live} {flags}",
+                { win = "input", height = 1, border = "bottom" },
+                { win = "list", border = "none" },
+              },
+              { win = "preview", title = "{preview}", border = "left", width = 0.5 },
+            },
+          },
           sidebar = {
             layout = {
               width = 30,
@@ -151,13 +129,6 @@ return {
           },
         },
       },
-    },
-  },
-
-  {
-    "Civitasv/cmake-tools.nvim",
-    opts = {
-      cmake_build_directory = "build",
     },
   },
 }
