@@ -58,6 +58,7 @@ return {
         ["<c-o>"] = { "select_and_accept", "fallback" },
         ["<c-j>"] = { "select_next", "fallback" },
         ["<c-k>"] = { "select_prev", "fallback" },
+        ["<c-s>"] = { "show_signature", "hide_signature", "fallback" },
       },
       completion = {
         documentation = { auto_show = false },
