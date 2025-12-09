@@ -1,0 +1,41 @@
+{
+  "plugins": {
+    "conform.nvim": {
+      "rev": "ffe26e8df8115c9665d24231f8a49fadb2d611ce",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "fzf-lua": {
+      "rev": "95dcadd8f4381c8407cb1e532a732397ce2194fe",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
+    "mason.nvim": {
+      "rev": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.ai": {
+      "rev": "bfb26d9072670c3aaefab0f53024b2f3729c8083",
+      "src": "https://github.com/nvim-mini/mini.ai"
+    },
+    "neogit": {
+      "rev": "8c75d6d010a5b6d28bc50f2976fe9f341cf268bc",
+      "src": "https://github.com/NeogitOrg/neogit"
+    },
+    "nvim-lspconfig": {
+      "rev": "a2bd1cf7b0446a7414aaf373cea5e4ca804c9c69",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "f47f549f74cea5d5f25a5205c9e127cd882f1d20",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
+    },
+    "oil.nvim": {
+      "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    }
+  }
+}

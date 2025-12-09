@@ -34,19 +34,6 @@ local clangd_cmd = (function()
 end)()
 
 return {
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      diagnostics = { underline = false },
-      inlay_hints = { enabled = false },
-      servers = {
-        clangd = {
-          enabled = vim.fn.filereadable(vim.uv.cwd() .. "/.ccls") == 0,
-          cmd = clangd_cmd,
-        },
-        ccls = { enabled = vim.fn.filereadable(vim.uv.cwd() .. "/.ccls") == 1 },
-        ruff = { enabled = false },
-      },
-    },
-  },
+  cmd = clangd_cmd,
+  filetypes = { "c", "cpp" },
 }
