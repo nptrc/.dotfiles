@@ -16,7 +16,7 @@ stty -ixon
 
 export PS1="\e[0;32m\u@\h \e[0min \e[0;33m\w\e[0m\n$ "
 export EDITOR="nvim"
-export FZF_DEFAULT_COMMAND="fdfind --type f --strip-cwd-prefix --hidden --follow --exclude .git"
+export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
 export FZF_DEFAULT_OPTS="
     --bind "ctrl-u:preview-up" \
     --bind "ctrl-d:preview-down" \
