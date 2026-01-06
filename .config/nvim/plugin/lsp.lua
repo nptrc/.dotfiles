@@ -1,7 +1,6 @@
 vim.lsp.enable({
   "lua_ls",
   "pyright",
-  "neocmake",
 })
 
 if vim.fn.filereadable(vim.uv.cwd() .. "/.ccls") == 0 then
@@ -11,14 +10,10 @@ else
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    vim.diagnostics = {
+  callback = function()
+    vim.diagnostic.config({
       underline = false,
-    }
-
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    if client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-    end
+    })
+    vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
   end,
 })

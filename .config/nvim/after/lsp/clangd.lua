@@ -25,11 +25,9 @@ local clangd_cmd = (function()
 
   return vim.list_extend(clangd_cmd_opts, {
     "--background-index",
-    "--clang-tidy",
-    "--header-insertion=iwyu",
+    "--header-insertion=never",
     "--completion-style=detailed",
-    "--function-arg-placeholders",
-    "--fallback-style=llvm",
+    "--function-arg-placeholders=1",
   })
 end)()
 

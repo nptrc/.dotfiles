@@ -28,7 +28,6 @@ opt.splitkeep = "screen"
 opt.undofile = true
 opt.undolevels = 10000
 
-opt.cmdheight = 0
 opt.laststatus = 3
 opt.signcolumn = "yes"
 opt.showmode = false

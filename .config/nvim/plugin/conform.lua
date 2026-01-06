@@ -25,4 +25,4 @@ vim.api.nvim_create_user_command("Format", function(args)
   require("conform").format({ range = range })
 end, { range = true })
 
-vim.keymap.set("n", "<leader>cf", "<cmd>Format<cr>")
+vim.keymap.set("n", "<leader>cf", "<cmd>Format<cr><cmd>w<cr>")

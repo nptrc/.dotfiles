@@ -1,8 +1,6 @@
 local map = vim.keymap.set
 
 map("i", "jk", "<esc>")
-map("i", "<c-b>", "<left>")
-map("i", "<c-f>", "<right>")
 
 map("n", "j", "gj")
 map("n", "k", "gk")

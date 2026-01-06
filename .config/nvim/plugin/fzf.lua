@@ -1,9 +1,11 @@
 require("fzf-lua").setup({
   winopts = {
-    border = "single",
-    fullscreen = true,
+    width = 1,
+    height = 0.5,
+    row = 1,
+    border = "none",
     preview = {
-      border = "single",
+      hidden = true,
       horizontal = "right:55%",
     },
   },
@@ -21,3 +23,5 @@ map("n", "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>")
 map("n", "<leader>sh", "<cmd>FzfLua helptags<cr>")
 map("n", "<leader>sm", "<cmd>FzfLua manpages<cr>")
 map("n", "<leader>fr", "<cmd>FzfLua resume<cr>")
+map("n", "<leader>ld", "<cmd>FzfLua lsp_workspace_diagnostics<cr>")
+map("n", "<leader>lr", "<cmd>FzfLua lsp_references<cr>")

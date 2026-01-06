@@ -1,11 +1,20 @@
 {
   "plugins": {
+    "alabaster.nvim": {
+      "rev": "1fc9e29fbbce94f127cc8b21960b7e3c85187960",
+      "src": "https://github.com/p00f/alabaster.nvim"
+    },
+    "blink.cmp": {
+      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": ">=0.0.0"
+    },
     "conform.nvim": {
-      "rev": "ffe26e8df8115c9665d24231f8a49fadb2d611ce",
+      "rev": "5420c4b5ea0aeb99c09cfbd4fd0b70d257b44f25",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fzf-lua": {
-      "rev": "95dcadd8f4381c8407cb1e532a732397ce2194fe",
+      "rev": "a899e3e33c6c26ffeda5739fb6e7157cfc21ad6f",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "mason.nvim": {
@@ -16,21 +25,29 @@
       "rev": "bfb26d9072670c3aaefab0f53024b2f3729c8083",
       "src": "https://github.com/nvim-mini/mini.ai"
     },
+    "mini.nvim": {
+      "rev": "e7a8e5a0920df1435172d42fb32e474bbb30d021",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
     "neogit": {
-      "rev": "8c75d6d010a5b6d28bc50f2976fe9f341cf268bc",
+      "rev": "d8bf9102692250193b855acd9025a826f1af2729",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "nvim-lspconfig": {
-      "rev": "a2bd1cf7b0446a7414aaf373cea5e4ca804c9c69",
+      "rev": "d696e36d5792daf828f8c8e8d4b9aa90c1a10c2a",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
-      "rev": "f47f549f74cea5d5f25a5205c9e127cd882f1d20",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "rev": "36fcb4a4238928f0b627e1ab84ade0acc1facc2c",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-treesitter-textobjects": {
+      "rev": "ecd03f5811eb5c66d2fa420b79121b866feecd82",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
     "oil.nvim": {
-      "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
+      "rev": "bbfa7cba85967dc9dbfe0ca486fd4b17084bf846",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
