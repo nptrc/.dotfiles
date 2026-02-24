@@ -51,13 +51,14 @@
  '(menu-bar-mode nil)
  '(minibuffer-prompt-properties '(read-only t face minibuffer-prompt cursor-intangible t))
  '(orderless-component-separator " +\\|[-/]")
+ '(package-archive-priorities '(("gnu" . 10) ("melpa" . 5)))
  '(package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
    '(company devdocs dracula-theme magit marginalia mason
-             multiple-cursors orderless vertico vundo yasnippet))
+             multiple-cursors orderless vertico vterm vundo yasnippet))
  '(read-buffer-completion-ignore-case t)
  '(read-extended-command-predicate 'command-completion-default-include-p)
  '(read-file-name-completion-ignore-case t)
@@ -74,10 +75,11 @@
  '(use-package-always-ensure t)
  '(use-short-answers t)
  '(vertico-cycle t)
- '(vertico-mode t))
+ '(vertico-mode t)
+ '(vterm-max-scrollback 10000))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+))

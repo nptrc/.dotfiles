@@ -1,5 +1,3 @@
-(load-theme 'tango-dark t)
-
 (defun save-all-buffers ()
   (interactive)
   (save-some-buffers t))
@@ -49,6 +47,8 @@
 (global-set-key (kbd "C-;")         'mc/skip-to-previous-like-this)
 
 (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+
+(setq vterm-timer-delay 0.01)
 
 (global-set-key (kbd "C-.") 'company-complete)
 (setq completion-ignore-case t)
