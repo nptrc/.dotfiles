@@ -1,3 +1,6 @@
+(setq custom-file "~/.emacs.custom.el")
+(load custom-file)
+
 (defun save-all-buffers ()
   (interactive)
   (save-some-buffers t))
@@ -34,8 +37,12 @@
 
 (global-set-key (kbd "C-c m")       'man)
 
+(setq custom-file "~/.emacs.custom.el")
+
 (require 'package)
 (package-initialize)
+(unless package-archive-contents (package-refresh-contents))
+(package-install-selected-packages)
 
 (global-set-key (kbd "C-x g")       'magit-status)
 
@@ -83,6 +90,3 @@
           (lambda ()
             (c-toggle-comment-style -1)
             (setq c-basic-offset 4)))
-
-(setq custom-file "~/.emacs.custom.el")
-(load custom-file)

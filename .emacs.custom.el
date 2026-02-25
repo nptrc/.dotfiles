@@ -24,7 +24,9 @@
  '(create-lockfiles nil)
  '(custom-enabled-themes '(dracula tango-dark))
  '(custom-safe-themes
-   '("2d74de1cc32d00b20b347f2d0037b945a4158004f99877630afc034a674e3ab7"
+   '("0223215a464167d93b9cfef9b1cdf9b0768ab660f33b3068b647f7b12aa453a0"
+     "9c6aa7eb1bde73ba1142041e628827492bd05678df4d9097cda21b1ebcb8f8b9"
+     "2d74de1cc32d00b20b347f2d0037b945a4158004f99877630afc034a674e3ab7"
      default))
  '(default-frame-alist
    '((fullscreen . maximized) (font . "JetbrainsMono Nerd Font-15")))
@@ -82,4 +84,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-))
+ )
