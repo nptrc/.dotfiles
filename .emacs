@@ -32,6 +32,8 @@
     (forward-char column)))
 (global-set-key (kbd "C-,")         'my/duplicate-line)
 
+(add-hook 'vterm-mode-hook (lambda () (display-line-numbers-mode -1)))
+
 (add-hook 'compilation-filter-hook  'ansi-color-compilation-filter)
 (global-set-key (kbd "C-c b")       'recompile)
 
