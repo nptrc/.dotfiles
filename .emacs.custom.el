@@ -57,10 +57,12 @@
  '(package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-     ("melpa" . "https://melpa.org/packages/")))
+     ("melpa" . "https://melpa.org/packages/")
+     ("melpa-stable" . "https://stable.melpa.org/packages/")))
  '(package-selected-packages
-   '(company devdocs dracula-theme magit marginalia mason
-             multiple-cursors orderless vertico vterm vundo yasnippet))
+   '(company devdocs direnv dracula-theme magit marginalia markdown-mode
+             mason multiple-cursors orderless ruff-format vertico
+             vterm vundo yasnippet))
  '(read-buffer-completion-ignore-case t)
  '(read-extended-command-predicate 'command-completion-default-include-p)
  '(read-file-name-completion-ignore-case t)

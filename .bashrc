@@ -30,6 +30,7 @@ export MANPAGER="nvim +Man!"
 export MENUCONFIG_STYLE="monochrome"
 
 eval "$(zoxide init bash)"
+eval "$(direnv hook bash)"
 
 . "$HOME/.cargo/env"
 
