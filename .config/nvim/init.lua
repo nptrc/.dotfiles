@@ -5,6 +5,7 @@ require("keymaps")
 require("autocmds")
 
 vim.pack.add({
+  "https://github.com/Mofiqul/dracula.nvim",
   "https://github.com/nvim-mini/mini.nvim",
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/neovim/nvim-lspconfig",
@@ -18,7 +19,8 @@ vim.pack.add({
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
 }, { confirm = false })
 
-vim.cmd.colorscheme("miniwinter")
+vim.cmd.colorscheme("dracula")
+
 require("mini.ai").setup()
 require("mini.surround").setup()
 vim.keymap.set("n", "<leader>bd", "<cmd>lua require('mini.bufremove').delete(0)<cr>")
