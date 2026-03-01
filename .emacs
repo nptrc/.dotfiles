@@ -32,8 +32,6 @@
     (forward-char column)))
 (global-set-key (kbd "C-,")         'my/duplicate-line)
 
-(add-hook 'vterm-mode-hook (lambda () (display-line-numbers-mode -1)))
-
 (add-hook 'compilation-filter-hook  'ansi-color-compilation-filter)
 (global-set-key (kbd "C-c b")       'recompile)
 
@@ -43,6 +41,8 @@
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 (package-install-selected-packages)
+
+(add-hook 'vterm-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 (global-set-key (kbd "C-x g")       'magit-status)
 
@@ -61,8 +61,10 @@
 (setq completion-ignore-case t)
 
 (mason-setup
-  (dolist (pkg '("clangd" "clang-format" "neocmakelsp"
-                 "pyright" "ruff"))
+  (dolist (pkg '("clangd" "clang-format"
+                 "neocmakelsp" "cmakelang"
+                 "pyright" "ruff"
+                 "bash-language-server" "shfmt"))
     (unless (mason-installed-p pkg)
       (ignore-errors (mason-install pkg)))))
 
@@ -89,6 +91,7 @@
 (add-hook 'c-mode-common-hook #'my/enable-eglot)
 (add-hook 'python-mode-hook #'my/enable-eglot)
 (add-hook 'cmake-mode-hook #'my/enable-eglot)
+(add-hook 'sh-mode-hook #'my/enable-eglot)
 
 (add-hook 'c-mode-common-hook
           (lambda ()

@@ -61,8 +61,8 @@
      ("melpa-stable" . "https://stable.melpa.org/packages/")))
  '(package-selected-packages
    '(company devdocs direnv dracula-theme magit marginalia markdown-mode
-             mason multiple-cursors orderless ruff-format vertico
-             vterm vundo yasnippet))
+             mason multiple-cursors orderless vertico vterm vundo
+             yasnippet))
  '(read-buffer-completion-ignore-case t)
  '(read-extended-command-predicate 'command-completion-default-include-p)
  '(read-file-name-completion-ignore-case t)
