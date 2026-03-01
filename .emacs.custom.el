@@ -45,6 +45,10 @@
  '(global-auto-revert-mode t)
  '(global-company-mode t)
  '(global-display-line-numbers-mode t)
+ '(grep-find-ignored-directories
+   '("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN"
+     "_darcs" "{arch}" ".venv" "venv" "node_modules" ".vscode" "build"
+     ".cache"))
  '(imenu-auto-rescan t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
