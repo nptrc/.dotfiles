@@ -10,7 +10,7 @@
  '(c-tab-always-indent nil)
  '(column-number-mode t)
  '(company-backends
-   '((company-capf :separate company-dabbrev-code) company-files))
+   '(company-files (company-capf :separate company-dabbrev-code)))
  '(company-dabbrev-code-ignore-case t)
  '(company-dabbrev-ignore-case t)
  '(company-idle-delay 0)
