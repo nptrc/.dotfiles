@@ -60,6 +60,14 @@
 (global-set-key (kbd "C-.") 'company-complete)
 (setq completion-ignore-case t)
 
+(add-hook 'python-mode-hook 'code-cells-mode-maybe)
+(with-eval-after-load 'code-cells
+  (let ((map code-cells-mode-map))
+    (keymap-set map "M-p"     'code-cells-backward-cell)
+    (keymap-set map "M-n"     'code-cells-forward-cell)
+    (keymap-set map "C-c C-c" 'code-cells-eval)
+    (keymap-set map "M-RET"   'code-cells-eval-and-step)))
+
 (mason-setup
   (dolist (pkg '("clangd" "clang-format"
                  "neocmakelsp" "cmakelang"
@@ -89,9 +97,9 @@
   (unless (> (buffer-size) (* 2 1024 1024))
     (eglot-ensure)))
 (add-hook 'c-mode-common-hook #'my/enable-eglot)
-(add-hook 'python-mode-hook #'my/enable-eglot)
-(add-hook 'cmake-mode-hook #'my/enable-eglot)
-(add-hook 'sh-mode-hook #'my/enable-eglot)
+(add-hook 'python-mode-hook   #'my/enable-eglot)
+(add-hook 'cmake-mode-hook    #'my/enable-eglot)
+(add-hook 'sh-mode-hook       #'my/enable-eglot)
 
 (add-hook 'c-mode-common-hook
           (lambda ()
