@@ -64,7 +64,7 @@
      ("melpa" . "https://melpa.org/packages/")
      ("melpa-stable" . "https://stable.melpa.org/packages/")))
  '(package-selected-packages
-   '(code-cells company devdocs direnv dracula-theme ein magit marginalia
+   '(code-cells company devdocs direnv dracula-theme magit marginalia
                 markdown-mode mason multiple-cursors orderless vertico
                 vterm vundo yasnippet))
  '(read-buffer-completion-ignore-case t)
