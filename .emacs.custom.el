@@ -41,6 +41,7 @@
  '(eglot-events-buffer-config '(:size 0 :format full))
  '(eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider :inlayHintProvider))
  '(eglot-report-progress nil)
+ '(eldoc-echo-area-use-multiline-p nil)
  '(enable-recursive-minibuffers t)
  '(global-auto-revert-mode t)
  '(global-company-mode t)
