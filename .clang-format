@@ -1,6 +1,12 @@
 ---
 BasedOnStyle: Microsoft
+AccessModifierOffset: -4
 AlignArrayOfStructures: Right
+AlignConsecutiveMacros:
+  Enabled: true
+AlignEscapedNewlines: LeftWithLastLine
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
 ColumnLimit: 100
 BraceWrapping:
   AfterClass: False
