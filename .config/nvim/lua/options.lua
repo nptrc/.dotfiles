@@ -34,4 +34,3 @@ opt.showmode = false
 opt.pumheight = 10
 opt.termguicolors = true
 opt.guicursor = "i-ci-ve:block"
-opt.shortmess:append({ I = true, c = true, C = true })
