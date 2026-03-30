@@ -16,4 +16,9 @@
           (lambda ()
             (setq file-name-handler-alist last-file-name-handler-alist)))
 
+(setq inhibit-startup-screen t)
+(setq menu-bar-mode nil)
+(setq tool-bar-mode nil)
+(push '(vertical-scroll-bars) default-frame-alist)
+
 (prefer-coding-system 'utf-8)
