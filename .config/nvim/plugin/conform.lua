@@ -4,6 +4,7 @@ require("conform").setup({
     c = { "clang_format" },
     cpp = { "clang_format" },
     python = { "ruff_format" },
+    markdown = { "prettier" },
   },
   default_format_opts = {
     timeout_ms = 3000,
