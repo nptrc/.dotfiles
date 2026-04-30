@@ -2,8 +2,6 @@ local oil = require("oil")
 
 oil.setup({
   keymaps = {
-    ["l"] = "actions.select",
-    ["h"] = { "actions.parent", mode = "n" },
     ["q"] = { "actions.close", mode = "n" },
     ["gx"] = "actions.open_external",
     ["g."] = { "actions.toggle_hidden", mode = "n" },
