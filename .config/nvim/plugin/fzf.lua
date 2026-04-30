@@ -17,6 +17,7 @@ require("fzf-lua").setup({
 local map = vim.keymap.set
 
 map("n", "<leader>ff", "<cmd>FzfLua files<cr>")
+map("n", "<leader>fb", "<cmd>FzfLua buffers<cr>")
 map("n", "<leader>sg", "<cmd>FzfLua live_grep<cr>")
 map("n", "<leader>sw", "<cmd>FzfLua grep_cword<cr>")
 map("n", "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>")
