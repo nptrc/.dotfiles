@@ -28,6 +28,7 @@ export FZF_DEFAULT_OPTS="
 "
 export MANPAGER="nvim +Man!"
 export MENUCONFIG_STYLE="monochrome"
+export IDF_TOOLCHAIN="clang"
 
 eval "$(zoxide init bash)"
 eval "$(direnv hook bash)"
