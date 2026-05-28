@@ -34,6 +34,7 @@ eval "$(zoxide init bash)"
 eval "$(direnv hook bash)"
 
 . "$HOME/.cargo/env"
+. "$HOME/opt/env.sh"
 
 vterm_printf() {
     if [ -n "$TMUX" ] \
