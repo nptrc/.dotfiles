@@ -1,7 +1,7 @@
 local clangd_cmd = (function()
   local clangd_cmd_opts = { "clangd" }
 
-  if vim.env.IDF_PATH then
+  if vim.env.IDF_TOOLS_PATH then
     local base = vim.env.HOME .. "/.espressif/tools/esp-clang"
     local scandir = vim.uv.fs_scandir(base)
     if not scandir then
