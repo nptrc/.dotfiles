@@ -5,3 +5,4 @@ alias grep="grep --color=always"
 
 alias vi="nvim"
 alias svi="sudo vim"
+alias getidf="source $HOME/repo/espidf/export.sh"
