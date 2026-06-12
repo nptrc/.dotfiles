@@ -35,13 +35,3 @@ eval "$(direnv hook bash)"
 
 . "$HOME/.cargo/env"
 . "$HOME/opt/env.sh"
-
-vterm_printf() {
-    if [ -n "$TMUX" ] \
-        && { [ "${TERM%%-*}" = "tmux" ] \
-            || [ "${TERM%%-*}" = "screen" ]; }; then
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
