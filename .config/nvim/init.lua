@@ -4,6 +4,12 @@ require("options")
 require("keymaps")
 require("autocmds")
 
+vim.filetype.add({
+  extension = {
+    v = "verilog",
+  },
+})
+
 vim.pack.add({
   "https://github.com/Mofiqul/dracula.nvim",
   "https://github.com/nvim-mini/mini.nvim",
