@@ -2,9 +2,8 @@
 BasedOnStyle: Microsoft
 AccessModifierOffset: -4
 AlignArrayOfStructures: Right
-AlignConsecutiveMacros:
-  Enabled: true
-AlignEscapedNewlines: LeftWithLastLine
+AlignConsecutiveMacros: Consecutive
+AlignEscapedNewlines: Left
 AllowAllArgumentsOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
 ColumnLimit: 100
