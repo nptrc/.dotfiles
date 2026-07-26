@@ -16,6 +16,7 @@ vim.pack.add({
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/stevearc/conform.nvim",
+  "https://github.com/mfussenegger/nvim-lint",
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/ibhagwan/fzf-lua",
   "https://github.com/NeogitOrg/neogit",
