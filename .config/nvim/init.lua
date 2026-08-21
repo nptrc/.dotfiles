@@ -22,7 +22,7 @@ vim.pack.add({
   "https://github.com/NeogitOrg/neogit",
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-treesitter/nvim-treesitter",
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
+  "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*") },
 }, { confirm = false })
 

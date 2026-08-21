@@ -22,10 +22,3 @@ for _, lang in ipairs(languages) do
     table.insert(filetypes, ft)
   end
 end
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = filetypes,
-  callback = function(ev)
-    vim.treesitter.start(ev.buf)
-  end,
-})
