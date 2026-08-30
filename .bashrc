@@ -20,6 +20,7 @@ export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --e
 export FZF_DEFAULT_OPTS="
     --bind 'ctrl-u:preview-up' \
     --bind 'ctrl-d:preview-down' \
+    --bind 'ctrl-o:execute(xdg-open {} >/dev/null 2>&1)' \
     --ansi \
     --multi \
     --reverse \
