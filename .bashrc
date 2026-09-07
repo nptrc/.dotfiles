@@ -1,7 +1,5 @@
 source $HOME/.bash_aliases
 
-export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
     . /usr/share/bash-completion/bash_completion
 
@@ -36,3 +34,5 @@ eval "$(direnv hook bash)"
 
 . "$HOME/.cargo/env"
 . "$HOME/opt/env.sh"
+
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
