@@ -1,7 +1,6 @@
 vim.lsp.enable({
   "lua_ls",
   "pyright",
-  "verible"
 })
 
 if vim.fn.filereadable(vim.uv.cwd() .. "/.ccls") == 0 then
