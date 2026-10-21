@@ -29,10 +29,6 @@
       "rev": "5432fe2b2565bb10d868c759245cd4c64125da31",
       "src": "https://github.com/NeogitOrg/neogit"
     },
-    "nvim-lint": {
-      "rev": "a219b2c9e5b4765e5c845aba119dad55806fcaf1",
-      "src": "https://github.com/mfussenegger/nvim-lint"
-    },
     "nvim-lspconfig": {
       "rev": "7ab79bb1b57160a537f427ac8a6026102f12b701",
       "src": "https://github.com/neovim/nvim-lspconfig"
