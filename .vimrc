@@ -1,5 +1,4 @@
 syntax on
-colorscheme evening
 
 let mapleader=" "
 let localmapleader="\\"
