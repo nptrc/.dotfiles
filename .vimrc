@@ -3,6 +3,7 @@ syntax on
 let mapleader=" "
 let localmapleader="\\"
 
+set paste
 set confirm
 set autowrite
 set updatetime=300
